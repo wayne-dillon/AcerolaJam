@@ -1,0 +1,94 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>Game1</RootNamespace>
+    <AssemblyName>Game1</AssemblyName>
+    <DefineConstants>$(DefineConstants);BLAZORGL</DefineConstants>
+	<KniPlatform>BlazorGL</KniPlatform>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Engine\Builders\SpriteBuilder.cs" />
+    <Compile Include="Engine\Builders\TextComponentBuilder.cs" />
+    <Compile Include="Engine\Enums\Alignment.cs" />
+    <Compile Include="Engine\Enums\GameState.cs" />
+    <Compile Include="Engine\Enums\SoundEffects.cs" />
+    <Compile Include="Engine\Enums\TransitionState.cs" />
+    <Compile Include="Engine\Globals.cs" />
+    <Compile Include="Engine\Input\InputController.cs" />
+    <Compile Include="Engine\Input\Keyboard\MyKey.cs" />
+    <Compile Include="Engine\Input\MyKeyboard.cs" />
+    <Compile Include="Engine\Input\MyMouseControl.cs" />
+    <Compile Include="Engine\Output\Animation\Colour\FadeIn.cs" />
+    <Compile Include="Engine\Output\Animation\Colour\FadeOut.cs" />
+    <Compile Include="Engine\Output\Animation\Colour\TempColorChange.cs" />
+    <Compile Include="Engine\Output\Animation\Dimensions\ExpandIn.cs" />
+    <Compile Include="Engine\Output\Animation\Dimensions\ShrinkOut.cs" />
+    <Compile Include="Engine\Output\Animation\IAnimate.cs" />
+    <Compile Include="Engine\Output\Animation\Jiggle.cs" />
+    <Compile Include="Engine\Output\Animation\Position\HorizontalShake.cs" />
+    <Compile Include="Engine\Output\Animation\Position\LinearMove.cs" />
+    <Compile Include="Engine\Output\Animation\Position\LinearMoveTo.cs" />
+    <Compile Include="Engine\Output\Animation\Position\ScrollDiagonal.cs" />
+    <Compile Include="Engine\Output\Animation\Position\ScrollHorizontal.cs" />
+    <Compile Include="Engine\Output\Display\Animatable.cs" />
+    <Compile Include="Engine\Output\Display\MultiLineTextComponent.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\AnimatedSprite.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\ChildSprite.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\Clickable.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\Dragable.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\HorizontalDragable.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\Sprite.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\Button.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\Checkbox.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\Cursor.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\LinkedButton.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\LinkedCheckbox.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\Slider.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\StatBar.cs" />
+    <Compile Include="Engine\Output\Display\Sprite\UI\Tooltip.cs" />
+    <Compile Include="Engine\Output\Display\TextComponent.cs" />
+    <Compile Include="Engine\Output\FPSDisplay.cs" />
+    <Compile Include="Engine\Sound\Music.cs" />
+    <Compile Include="Engine\Sound\SFXPlayer.cs" />
+    <Compile Include="Engine\Utils\Colors.cs" />
+    <Compile Include="Engine\Utils\Coordinates.cs" />
+    <Compile Include="Engine\Utils\Files\CSVReader.cs" />
+    <Compile Include="Engine\Utils\Files\CSVWriter.cs" />
+    <Compile Include="Engine\Utils\Files\Persistence.cs" />
+    <Compile Include="Engine\Utils\Files\Preferences.cs" />
+    <Compile Include="Engine\Utils\MyTimer.cs" />
+    <Compile Include="Engine\Utils\TransitionManager.cs" />
+    <Compile Include="GamePlay\World\Gameplay.cs" />
+    <Compile Include="Pages\Index.razor.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Game1Game.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontStashSharp.MonoGame" Version="1.3.6" />
+    <PackageReference Include="nkast.Xna.Framework" Version="3.10.9001" />
+    <PackageReference Include="nkast.Xna.Framework.Blazor" Version="3.10.9001" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <KniContentReference Include="Content\Game1Content.mgcb" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\Kni.Content.Builder.targets" />
+</Project>
