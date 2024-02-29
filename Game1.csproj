@@ -46,6 +46,7 @@
     <Compile Include="Engine\Output\Animation\Position\ScrollDiagonal.cs" />
     <Compile Include="Engine\Output\Animation\Position\ScrollHorizontal.cs" />
     <Compile Include="Engine\Output\Display\Animatable.cs" />
+    <Compile Include="Engine\Output\Display\Fonts.cs" />
     <Compile Include="Engine\Output\Display\MultiLineTextComponent.cs" />
     <Compile Include="Engine\Output\Display\Sprite\AnimatedSprite.cs" />
     <Compile Include="Engine\Output\Display\Sprite\ChildSprite.cs" />
@@ -69,11 +70,29 @@
     <Compile Include="Engine\Utils\Coordinates.cs" />
     <Compile Include="Engine\Utils\Files\CSVReader.cs" />
     <Compile Include="Engine\Utils\Files\CSVWriter.cs" />
-    <Compile Include="Engine\Utils\Files\Persistence.cs" />
-    <Compile Include="Engine\Utils\Files\Preferences.cs" />
     <Compile Include="Engine\Utils\MyTimer.cs" />
     <Compile Include="Engine\Utils\TransitionManager.cs" />
-    <Compile Include="GamePlay\World\Gameplay.cs" />
+    <Compile Include="GamePlay\Enums\Orientation.cs" />
+    <Compile Include="GamePlay\GameGlobals.cs" />
+    <Compile Include="GamePlay\Objects\Configuration.cs" />
+    <Compile Include="GamePlay\Objects\Coordinate.cs" />
+    <Compile Include="GamePlay\Objects\Grid.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\BasePiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\LongPiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\LPiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\RPiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\SPiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\SquarePiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\TPiece.cs" />
+    <Compile Include="GamePlay\Objects\Pieces\ZPiece.cs" />
+    <Compile Include="GamePlay\Objects\Tile.cs" />
+    <Compile Include="GamePlay\Utils\EnumHelper.cs" />
+    <Compile Include="GamePlay\World\GamePlay.cs" />
+    <Compile Include="GamePlay\World\MainMenu.cs" />
+    <Compile Include="GamePlay\World\OptionsMenu.cs" />
+    <Compile Include="GamePlay\World\SettingsMenu.cs" />
+    <Compile Include="GamePlay\World\UI\RoundEndOverlay.cs" />
+    <Compile Include="GamePlay\World\UI\UI.cs" />
     <Compile Include="Pages\Index.razor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1Game.cs" />
@@ -89,6 +108,10 @@
 
   <ItemGroup>
     <KniContentReference Include="Content\Game1Content.mgcb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GamePlay\Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\Kni.Content.Builder.targets" />
 </Project>

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 public class Cursor : Sprite
 {
-    public Cursor() : base("UI//Cursor", Alignment.TOP_LEFT, new Vector2(0,0), new Vector2(25,25), Color.White, null, false) 
+    public Cursor() : base("rect", Alignment.TOP_LEFT, new Vector2(0,0), new Vector2(25,25), Color.Pink, null, false) 
     {
     }
 
@@ -15,6 +15,6 @@ public class Cursor : Sprite
 
     public override void Draw()
     {
-        base.Draw(Pos / Globals.ScalingFactor());
+        base.Draw(Pos);
     }
 }

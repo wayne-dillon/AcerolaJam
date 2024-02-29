@@ -4,19 +4,16 @@ public class Music
 {
     private static Song menuTheme;
     private static Song gameTheme;
-    private static Song completionJingle;
-    private static Song endJingle;
     private static MyTimer fadeTime;
     private static Song currentSong;
+    public static float volume = 0.5f;
 
     public Music()
     {
-        menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
-        gameTheme = Globals.content.Load<Song>("Sound//mainTheme");
-        completionJingle = Globals.content.Load<Song>("Sound//completionJingle");
-        endJingle = Globals.content.Load<Song>("Sound//endJingle");
-        PlayOnRepeat(menuTheme);
-        MediaPlayer.Volume = (float)Persistence.preferences.musicVolume / 100;
+        //menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
+        //gameTheme = Globals.content.Load<Song>("Sound//mainTheme");
+        //PlayOnRepeat(menuTheme);
+        MediaPlayer.Volume = volume;
     }
 
     public static void SetTrack()
@@ -30,20 +27,6 @@ public class Music
                 PlayOnRepeat(menuTheme);
                 break;
         }
-    }
-
-    public static void PlayCompletionJingle()
-    {
-        MediaPlayer.MediaStateChanged -= (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
-        MediaPlayer.Play(completionJingle);
-        MediaPlayer.MediaStateChanged += (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
-    }
-
-    public static void PlayEndJingle()
-    {
-        MediaPlayer.MediaStateChanged -= (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
-        MediaPlayer.Play(endJingle);
-        MediaPlayer.MediaStateChanged += (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
     }
 
     private static void PlayOnRepeat(Song SONG)
@@ -60,7 +43,6 @@ public class Music
         if (INFO is float value)
         {
             MediaPlayer.Volume = value;
-            Persistence.preferences.musicVolume = (int)(value * 100);
         }
     }
 
@@ -68,6 +50,7 @@ public class Music
     {
         if (INFO is float value)
         {
+            volume = value;
             MediaPlayer.Volume = value;
         }
     }
@@ -86,13 +69,13 @@ public class Music
     {
         fadeTime.UpdateTimer();
         float percentage = fadeTime.RemainingTime <= 0 ? 0 : (float)fadeTime.RemainingTime / (float)fadeTime.MSec;
-        SetCurrentVolume(null, Persistence.preferences.musicVolume * percentage);
+        SetCurrentVolume(null, volume * percentage);
     }
 
     public static void FadeUp()
     {
         fadeTime.UpdateTimer();
         float percentage = fadeTime.RemainingTime <= 0 ? 1 : (float)fadeTime.Timer / (float)fadeTime.MSec;
-        SetCurrentVolume(null, Persistence.preferences.musicVolume * percentage);
+        SetCurrentVolume(null, volume * percentage);
     }
 }

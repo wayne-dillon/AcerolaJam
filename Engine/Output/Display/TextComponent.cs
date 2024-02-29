@@ -14,7 +14,7 @@ public class TextComponent : Animatable
     {
         text = TEXT;
         textAlignment = TEXTALIGNMENT;
-        font = Globals.content.Load<SpriteFont>("Fonts//IndieFlower12");
+        font = Globals.defaultFont;
         Init();
     }
 
@@ -39,9 +39,9 @@ public class TextComponent : Animatable
     {
         return textAlignment switch
         {
-            Alignment.CENTER or Alignment.TOP or Alignment.BOTTOM => new Vector2(-GetWidth() / 2 / Globals.ScalingFactor().X, -GetHeight() / 2 / Globals.ScalingFactor().Y),
-            Alignment.CENTER_LEFT or Alignment.TOP_LEFT or Alignment.BOTTOM_LEFT => new Vector2(0, -GetHeight() / 2 / Globals.ScalingFactor().Y),
-            _ => new Vector2(-GetWidth() / Globals.ScalingFactor().X, -GetHeight() / 2 / Globals.ScalingFactor().Y),
+            Alignment.CENTER or Alignment.TOP or Alignment.BOTTOM => new Vector2(-GetWidth() / 2, -GetHeight() / 2),
+            Alignment.CENTER_LEFT or Alignment.TOP_LEFT or Alignment.BOTTOM_LEFT => new Vector2(0, -GetHeight() / 2),
+            _ => new Vector2(-GetWidth(), -GetHeight() / 2),
         };
     }
 
@@ -49,9 +49,9 @@ public class TextComponent : Animatable
     {
         return textAlignment switch
         {
-            Alignment.CENTER or Alignment.TOP or Alignment.BOTTOM => new Vector2(-GetWidth(TEXT) / 2 / Globals.ScalingFactor().X, -GetHeight(TEXT) / 2 / Globals.ScalingFactor().Y),
-            Alignment.CENTER_LEFT or Alignment.TOP_LEFT or Alignment.BOTTOM_LEFT => new Vector2(0, -GetHeight(TEXT) / 2 / Globals.ScalingFactor().Y),
-            _ => new Vector2(-GetWidth(TEXT) / Globals.ScalingFactor().X, -GetHeight(TEXT) / 2 / Globals.ScalingFactor().Y),
+            Alignment.CENTER or Alignment.TOP or Alignment.BOTTOM => new Vector2(-GetWidth(TEXT) / 2, -GetHeight(TEXT) / 2),
+            Alignment.CENTER_LEFT or Alignment.TOP_LEFT or Alignment.BOTTOM_LEFT => new Vector2(0, -GetHeight(TEXT) / 2),
+            _ => new Vector2(-GetWidth(TEXT), -GetHeight(TEXT) / 2),
         };
     }
 
@@ -73,7 +73,7 @@ public class TextComponent : Animatable
     {
         if (effect != null) Globals.ReopenSpriteBatch(effect);
 
-        Globals.spriteBatch.DrawString(font, text, absolutePos * Globals.ScalingFactor(), color);
+        Globals.spriteBatch.DrawString(font, text, absolutePos, color);
 
         if (effect != null) Globals.ReopenSpriteBatch(null);
     }

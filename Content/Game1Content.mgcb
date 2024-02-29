@@ -25,3 +25,36 @@
 /processorParam:TextureFormat=Color
 /build:rect.png
 
+#begin Fonts/Bungee.ttf
+/copy:Fonts/Bungee.ttf
+
+#begin Fonts\Bungee12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts\Bungee12.spritefont
+
+#begin Fonts/Bungee18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts/Bungee18.spritefont
+
+#begin Fonts/Bungee24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts/Bungee24.spritefont
+
+#begin Sound/buttonClick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/buttonClick.wav
+

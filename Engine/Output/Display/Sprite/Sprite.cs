@@ -22,7 +22,7 @@ public class Sprite : Animatable
     }
 
     public virtual bool HoverImg() { 
-        Vector2 mousePos = Globals.mouse.newMousePos / Globals.ScalingFactor();
+        Vector2 mousePos = Globals.mouse.newMousePos;
 
         if (mousePos.X >= Pos.X - dims.X / 2 && mousePos.X <= Pos.X + dims.X / 2
                 && mousePos.Y >= Pos.Y - dims.Y / 2 && mousePos.Y <= Pos.Y  + dims.Y / 2)
@@ -53,8 +53,8 @@ public class Sprite : Animatable
         {
             if (effect != null) Globals.ReopenSpriteBatch(effect);
         
-            Globals.spriteBatch.Draw(myModel, new Rectangle((int)(POS.X * Globals.ScalingFactor().X), (int)(POS.Y * Globals.ScalingFactor().Y), 
-                (int)(dims.X * Globals.ScalingFactor().X), (int)(dims.Y * Globals.ScalingFactor().Y)), null, COLOR, rot, 
+            Globals.spriteBatch.Draw(myModel, new Rectangle((int)POS.X, (int)POS.Y, 
+                (int)dims.X, (int)dims.Y), null, COLOR, rot, 
                 new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), hFlipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         
             if (effect != null) Globals.ReopenSpriteBatch(null);

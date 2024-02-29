@@ -80,7 +80,7 @@ public class MultiLineTextComponent : TextComponent
 
         foreach (LineTextAndPos line in textList)
         {
-            Globals.spriteBatch.DrawString(font, line.text, (Pos + line.offset) * Globals.ScalingFactor(), color);
+            Globals.spriteBatch.DrawString(font, line.text, (Pos + line.offset), color);
         }
         
         if (effect != null) Globals.ReopenSpriteBatch(null);

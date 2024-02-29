@@ -11,7 +11,6 @@ public class Globals
     public static GameState gameState = GameState.MAIN_MENU;
     public static Random random = new();
     public static SpriteFont defaultFont;
-    public static FontSystem fontSystem;
 
     public static ContentManager content;
     public static GraphicsDeviceManager graphics;
@@ -105,6 +104,4 @@ public class Globals
 
         return angle;
     }
-
-    public static Vector2 ScalingFactor() => new((float)screenWidth / Coordinates.screenWidth, (float)screenHeight / Coordinates.screenHeight);
 }

@@ -45,7 +45,6 @@ public class TransitionManager
                     transState = TransitionState.BEGIN_IN;
                     // if (transitionFromState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY)
                     //     Music.SetTrack();
-                    if (transitionFromState == GameState.ABOUT) Persistence.SavePreferences();
                 }
                 return;
             case TransitionState.BEGIN_IN:

@@ -1,15 +1,21 @@
-﻿using FontStashSharp;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 
 /// <summary>
 /// This is the main type for your game.
 /// </summary>
 public class Game1Game : Game
 {
-    Gameplay gameplay;
+    private MainMenu mainMenu;
+    private SettingsMenu settingsMenu;
+    private GamePlay gamePlay;
+    private Music music;
+    public UI ui;
+
+    public Sprite background;
+
+    Cursor cursor;
 
     public Game1Game()
     {
@@ -47,10 +53,26 @@ public class Game1Game : Game
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
+        cursor = new Cursor();
+
         Globals.keyboard = new MyKeyboard();
         Globals.mouse = new MyMouseControl();
 
-        gameplay = new();
+        Fonts.Init();
+        Globals.defaultFont = Fonts.defaultFont24;
+
+        music = new Music();
+        mainMenu = new MainMenu();
+        settingsMenu = new SettingsMenu();
+        gamePlay = new GamePlay();
+        Globals.reset = gamePlay.Reset;
+        ui = new UI();
+
+        background = new SpriteBuilder().WithPath("rect")
+                                        .WithColor(Color.LightGoldenrodYellow)
+                                        .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))
+                                        .WithTransitionable(false)
+                                        .Build();
     }
 
     /// <summary>
@@ -60,15 +82,37 @@ public class Game1Game : Game
     /// <param name="gameTime">Provides a snapshot of timing values.</param>
     protected override void Update(GameTime gameTime)
     {
+        if (TransitionManager.transState == TransitionState.OUT_REQUESTED)
+        {
+            TransitionManager.transState = TransitionState.BEGIN_OUT;
+        }
+
         // TODO: Add your update logic here
         Globals.gameTime = gameTime;
         Globals.keyboard.Update();
         Globals.mouse.Update();
 
-        gameplay.Update();
+        switch (Globals.gameState)
+        {
+            case GameState.MAIN_MENU:
+                mainMenu.Update();
+                break;
+            case GameState.SETTINGS:
+                settingsMenu.Update();
+                break;
+            case GameState.GAME_PLAY:
+                gamePlay.Update();
+                break;
+        }
+
+        ui.Update();
+
+        TransitionManager.Update();
 
         Globals.keyboard.UpdateOld();
         Globals.mouse.UpdateOld();
+
+        cursor.Update();
 
         base.Update(gameTime);
     }
@@ -84,7 +128,28 @@ public class Game1Game : Game
         Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
 
         // TODO: Add your drawing code here
-        gameplay.Draw();
+        background.Draw();
+
+        if (TransitionManager.transState != TransitionState.PAUSE)
+        {
+            switch (Globals.gameState)
+            {
+                case GameState.MAIN_MENU:
+                    mainMenu.Draw();
+                    break;
+                case GameState.SETTINGS:
+                    settingsMenu.Draw();
+                    break;
+                case GameState.GAME_PLAY:
+                    gamePlay.Draw();
+                    break;
+            }
+        }
+
+        if (Globals.gameState != GameState.GAME_PLAY)
+        {
+            cursor.Draw();
+        }
 
         Globals.spriteBatch.End();
 
