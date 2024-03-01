@@ -6,5 +6,9 @@ public class GameGlobals
     public static bool gameInProgress;
 
     public static Grid grid;
-    //public static BasePiece piece;
+    public static int score;
+    public static int completedRows;
+
+    public static bool animating;
+    public static int fallTime;
 }

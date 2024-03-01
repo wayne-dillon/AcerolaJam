@@ -20,9 +20,9 @@ public class ZPiece : BasePiece
             { new(1,-1), true },
         };
         configurations.Add(Orientation.NORTH, new(vertical, 1, 1, 0));
-        configurations.Add(Orientation.EAST, new(horizontal, 0, 1, 1));
+        configurations.Add(Orientation.EAST, new(horizontal, 1, 1, 1));
         configurations.Add(Orientation.SOUTH, new(vertical, 1, 1, 0));
-        configurations.Add(Orientation.WEST, new(horizontal, 0, 1, 1));
+        configurations.Add(Orientation.WEST, new(horizontal, 1, 1, 1));
 
         MoveToUpNext();
     }

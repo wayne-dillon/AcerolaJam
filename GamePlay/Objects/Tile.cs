@@ -8,32 +8,48 @@ public class Tile
     private bool isOccupied;
     public bool IsOccupied { get { return isOccupied; } set { isOccupied = value; } }
 
-    private Sprite background;
+    private Sprite emptyBackground;
+    private Sprite filledBackground;
 
     public Tile(Coordinate COORD, Color COLOR)
     {
         coordinate = COORD;
 
-        background = new SpriteBuilder().WithPath("rect")
-                                        .WithDims(new Vector2(32, 32))
+        SpriteBuilder builder = new SpriteBuilder().WithDims(new Vector2(32, 32))
                                         .WithAbsolutePosition(EnumHelper.ScreenPos(coordinate))
-                                        .WithColor(COLOR)
-                                        .Build();
+                                        .WithColor(COLOR);
+
+        emptyBackground = builder.WithPath("EmptyFrame").Build();
+        filledBackground = builder.WithPath("Block").Build();
     }
 
     public void Update()
     {
-        background.Pos = EnumHelper.ScreenPos(coordinate);
-        background.Update();
+        emptyBackground.Pos = EnumHelper.ScreenPos(coordinate);
+        emptyBackground.Update();
+        filledBackground.Pos = EnumHelper.ScreenPos(coordinate);
+        filledBackground.Update();
+    }
+
+    public Color GetColor()
+    {
+        return filledBackground.color;
     }
 
     public void SetColor(Color COLOR)
     {
-        background.color = COLOR;
+        filledBackground.color = COLOR;
     }
 
     public void Draw()
     {
-        background.Draw();
+        if (isOccupied)
+        {
+            filledBackground.Draw();
+        }
+        else
+        {
+            emptyBackground.Draw();
+        }
     }
 }

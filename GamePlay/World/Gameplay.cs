@@ -3,6 +3,8 @@
     private Grid grid;
     private BasePiece currentPiece;
     private BasePiece nextPiece;
+    private TextComponent scoreDisplay;
+    private MyTimer fallTimer;
 
     public GamePlay()
     {
@@ -12,23 +14,46 @@
     {
         GameGlobals.gameInProgress = true;
 
-        grid = new Grid();
+        GameGlobals.grid = grid = new Grid();
+        GameGlobals.score = 0;
+        GameGlobals.fallTime = 800;
+        fallTimer = new(GameGlobals.fallTime);
+
         currentPiece = BlockMaker.RandomPiece();
         currentPiece.MoveToGrid();
         nextPiece = BlockMaker.RandomPiece();
+
+        scoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 100)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
     }
 
     public void Update()
     {
-        if (InputController.RotateCW()) currentPiece.RotateClockwise();
-        if (InputController.RotateCCW()) currentPiece.RotateCounterClockwise();
-        if (InputController.Left()) currentPiece.MoveLeft();
-        if (InputController.Right()) currentPiece.MoveRight();
-        if (InputController.Down()) currentPiece.MoveDown();
+        if (currentPiece.placed)
+        {
+            currentPiece = nextPiece;
+            currentPiece.MoveToGrid();
+
+            nextPiece = BlockMaker.RandomPiece();
+        }
+
+        if (!GameGlobals.animating)
+        {
+            fallTimer.UpdateTimer();
+            if (InputController.RotateCW()) currentPiece.RotateClockwise();
+            if (InputController.RotateCCW()) currentPiece.RotateCounterClockwise();
+            if (InputController.Left()) currentPiece.MoveLeft();
+            if (InputController.Right()) currentPiece.MoveRight();
+            if (InputController.Down() || fallTimer.Test())
+            {
+                fallTimer.ResetToZero();
+                currentPiece.MoveDown();
+            }
+        }
 
         grid.Update();
         currentPiece.Update();
         nextPiece.Update();
+        scoreDisplay.Update("Score: " + GameGlobals.score);
     }
 
     public void Reset(object SENDER, object INFO)
@@ -41,5 +66,6 @@
         grid.Draw();
         currentPiece.Draw();
         nextPiece.Draw();
+        scoreDisplay.Draw();
     }
 }

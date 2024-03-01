@@ -2,22 +2,26 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 
-public struct Grid
+public class Grid
 {
     private readonly Dictionary<Coordinate, Tile> tiles;
+    private List<int> filledRows;
+    private MyTimer animationTimer;
 
     public Grid()
     {
         int x = GameGlobals.gridSize.X;
         int y = GameGlobals.gridSize.Y;
         tiles = new();
+        filledRows = new();
+        animationTimer = new(300);
 
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
                 Coordinate coord = new(i, j);
-                tiles.Add(coord, new Tile(coord, Color.Gray));
+                tiles.Add(coord, new Tile(coord, Colors.White));
             }
         }
     }
@@ -27,6 +31,49 @@ public struct Grid
         foreach (Tile tile in tiles.Values)
         {
             tile.Update();
+        }
+
+        if (GameGlobals.animating)
+        {
+            animationTimer.UpdateTimer();
+            if (animationTimer.Test())
+            {
+                foreach (int i in filledRows)
+                {
+                    RemoveRow(i);
+                }
+                filledRows.Clear();
+                GameGlobals.animating = false;
+            }
+        }
+        else
+        {
+            CheckForFilledRows();
+        }
+    }
+
+    private void CheckForFilledRows()
+    {
+        filledRows.Clear();
+        for (int i = 0; i < GameGlobals.gridSize.Y; i++)
+        {
+            bool filled = true;
+            for (int j = 0; j < GameGlobals.gridSize.X; j++)
+            {
+                if (!tiles[new(j, i)].IsOccupied)
+                {
+                    filled = false; break;
+                }
+            }
+            if (filled) filledRows.Add(i);
+        }
+
+        if (filledRows.Count != 0)
+        {
+            GameGlobals.score += 100 * filledRows.Count * filledRows.Count;
+            GameGlobals.completedRows += filledRows.Count;
+            GameGlobals.animating = true;
+            animationTimer.ResetToZero();
         }
     }
 
@@ -39,22 +86,22 @@ public struct Grid
         }
     }
 
-    public readonly Tile GetTile(Coordinate COORDS)
+    public Tile GetTile(Coordinate COORDS)
     {
         return tiles[COORDS];
     }
 
-    public readonly List<Tile> GetAllTiles()
+    public List<Tile> GetAllTiles()
     {
         return tiles.Values.ToList();
     }
 
-    public readonly bool IsUnavailable(Coordinate COORD)
+    public bool IsUnavailable(Coordinate COORD)
     {
         return !Exists(COORD) || tiles[COORD].IsOccupied;
     }
 
-    public readonly bool Exists(Coordinate COORD)
+    public bool Exists(Coordinate COORD)
     {
         return tiles.ContainsKey(COORD);
     }
@@ -65,7 +112,8 @@ public struct Grid
         {
             for (int j = 0; j < GameGlobals.gridSize.X; j++)
             {
-                tiles[new(j, i)].SetColor(Color.Gray);
+                tiles[new(j, i)].IsOccupied = i == 0 ? false : tiles[new(j, i-1)].IsOccupied;
+                tiles[new(j, i)].SetColor(i == 0 ? Colors.White : tiles[new(j, i - 1)].GetColor());
             }
         }
     }

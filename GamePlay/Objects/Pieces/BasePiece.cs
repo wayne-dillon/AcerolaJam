@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 public class BasePiece
 {
+    public bool placed = false;
     private Sprite sprite;
     public Color color;
     protected Dictionary<Orientation, Configuration> configurations;
@@ -16,7 +17,7 @@ public class BasePiece
         color = COLOR;
         configurations = new Dictionary<Orientation, Configuration>();
         currentOrientation = EnumHelper.RandomOrientation();
-        sprite = new SpriteBuilder().WithPath("rect").WithColor(color).WithDims(new(32,32)).WithTransitionable(false).Build();
+        sprite = new SpriteBuilder().WithPath("Block").WithColor(color).WithDims(new(32,32)).WithTransitionable(false).Build();
     }
 
     public void Update()
@@ -36,6 +37,7 @@ public class BasePiece
             Tile tile = GameGlobals.grid.GetTile(coord.Key + originPos);
             tile.IsOccupied = true;
             tile.SetColor(color);
+            placed = true;
         }
     }
 

@@ -6,6 +6,9 @@ public class MyKeyboard
     public KeyboardState newKeyboard, oldKeyboard;
 
     public List<MyKey> pressedKeys = new(), previousPressedKeys = new();
+    public Dictionary<string, MyTimer> heldKeys = new();
+
+    public int longPressTime = 250;
 
     public MyKeyboard()
     {
@@ -16,6 +19,10 @@ public class MyKeyboard
         newKeyboard = Keyboard.GetState();
 
         GetPressedKeys();
+        foreach (var timer in heldKeys)
+        {
+            if (!pressedKeys.Exists(key => key.key == timer.Key)) timer.Value.ResetToZero();
+        }
     }
 
     public void UpdateOld()
@@ -50,7 +57,11 @@ public class MyKeyboard
         pressedKeys.Clear();
         foreach (Keys key in newKeyboard.GetPressedKeys())
         {
-            pressedKeys.Add(new MyKey(key.ToString(), 1));
+            MyKey current = new(key.ToString(), 1);
+            pressedKeys.Add(current);
+
+            heldKeys.TryAdd(current.key, new MyTimer(longPressTime));
+            heldKeys[current.key].UpdateTimer();
         }
     }
 
@@ -73,6 +84,20 @@ public class MyKeyboard
             {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public bool GetSingleOrLongPress(string KEY)
+    {
+        if (GetSinglePress(KEY)) return true;
+
+        MyTimer timer;
+        if (heldKeys.TryGetValue(KEY, out timer) && timer.Test())
+        {
+            timer.ResetToZero();
+            return true;
         }
 
         return false;
