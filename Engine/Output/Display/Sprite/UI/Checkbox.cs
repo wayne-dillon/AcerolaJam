@@ -8,7 +8,7 @@ public class Checkbox : Clickable
     protected bool isChecked;
     
     public Checkbox(Alignment ALIGNMENT, Vector2 OFFSET, List<IAnimate> ANIMATIONS, EventHandler<object> BUTTONCLICKED, object INFO, bool ISTRANSITIONABLE, bool ISCHECKED) 
-        : base("UI//Oval20x20", ALIGNMENT, OFFSET, new Vector2(20,20), Colors.BaseUIElement, Colors.BaseUIElement, Colors.Unavailable, 
+        : base("rect", ALIGNMENT, OFFSET, new Vector2(20,20), Colors.BaseUIElement, Colors.BaseUIElement, Colors.Unavailable, 
                 ANIMATIONS, Vector2.One, true, BUTTONCLICKED, INFO, ISTRANSITIONABLE) 
     {
         isChecked = ISCHECKED;

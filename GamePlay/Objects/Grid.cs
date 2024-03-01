@@ -49,9 +49,9 @@ public struct Grid
         return tiles.Values.ToList();
     }
 
-    public readonly bool IsUnoccupied(Coordinate COORD)
+    public readonly bool IsUnavailable(Coordinate COORD)
     {
-        return Exists(COORD) && !tiles[COORD].IsOccupied;
+        return !Exists(COORD) || tiles[COORD].IsOccupied;
     }
 
     public readonly bool Exists(Coordinate COORD)

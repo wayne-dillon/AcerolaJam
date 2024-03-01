@@ -37,5 +37,7 @@ public class RPiece : BasePiece
         configurations.Add(Orientation.EAST, new(east, 0, 1, 1));
         configurations.Add(Orientation.SOUTH, new(south, 1, 1, 0));
         configurations.Add(Orientation.WEST, new(west, 1, 1, 1));
+
+        MoveToUpNext();
     }
 }

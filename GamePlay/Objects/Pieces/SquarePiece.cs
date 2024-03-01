@@ -16,5 +16,7 @@ public class SquarePiece : BasePiece
         configurations.Add(Orientation.EAST, new(coords, 0, 0, 1));
         configurations.Add(Orientation.SOUTH, new(coords, 0, 0, 1));
         configurations.Add(Orientation.WEST, new(coords, 0, 0, 1));
+
+        MoveToUpNext();
     }
 }

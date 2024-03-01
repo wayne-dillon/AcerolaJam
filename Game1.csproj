@@ -16,9 +16,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -86,6 +88,7 @@
     <Compile Include="GamePlay\Objects\Pieces\TPiece.cs" />
     <Compile Include="GamePlay\Objects\Pieces\ZPiece.cs" />
     <Compile Include="GamePlay\Objects\Tile.cs" />
+    <Compile Include="GamePlay\Utils\BlockMaker.cs" />
     <Compile Include="GamePlay\Utils\EnumHelper.cs" />
     <Compile Include="GamePlay\World\GamePlay.cs" />
     <Compile Include="GamePlay\World\MainMenu.cs" />

@@ -146,10 +146,7 @@ public class Game1Game : Game
             }
         }
 
-        if (Globals.gameState != GameState.GAME_PLAY)
-        {
-            cursor.Draw();
-        }
+        cursor.Draw();
 
         Globals.spriteBatch.End();
 

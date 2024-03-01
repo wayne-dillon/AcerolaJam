@@ -13,11 +13,6 @@ public class MainMenu
                                                         .WithPath("rect")
                                                         .WithDims(new Vector2(200, 64));
 
-        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 300))
-                                .WithText("Quit")
-                                .WithButtonAction((sender, info) => { Environment.Exit(0); })
-                                .BuildButton());
-
         buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 100))
                                 .WithText("New Game")
                                 .WithButtonAction(Play)

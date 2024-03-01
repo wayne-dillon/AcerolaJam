@@ -23,5 +23,7 @@ public class LongPiece : BasePiece
         configurations.Add(Orientation.EAST, new(horizontal, 0, 1, 2));
         configurations.Add(Orientation.SOUTH, new(vertical, 1, 0, 0));
         configurations.Add(Orientation.WEST, new(horizontal, 0, 1, 2));
+
+        MoveToUpNext();
     }
 }

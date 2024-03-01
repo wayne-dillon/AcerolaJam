@@ -16,22 +16,15 @@ public class Tile
 
         background = new SpriteBuilder().WithPath("rect")
                                         .WithDims(new Vector2(32, 32))
-                                        .WithAbsolutePosition(ScreenPos())
+                                        .WithAbsolutePosition(EnumHelper.ScreenPos(coordinate))
                                         .WithColor(COLOR)
                                         .Build();
     }
 
     public void Update()
     {
-        background.Pos = ScreenPos();
+        background.Pos = EnumHelper.ScreenPos(coordinate);
         background.Update();
-    }
-
-    private Vector2 ScreenPos()
-    {
-        float x = 464 + (coordinate.X * 32);
-        float y = 88 + (coordinate.Y * 32);
-        return new Vector2(x, y);
     }
 
     public void SetColor(Color COLOR)

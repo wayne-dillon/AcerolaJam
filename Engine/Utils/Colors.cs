@@ -9,5 +9,8 @@ public class Colors
     public static readonly Color squarePiece = Color.Aqua;
     public static readonly Color tPiece = Color.Aqua;
     public static readonly Color zPiece = Color.Aqua;
+
+    public static readonly Color BaseUIElement = new(200, 230, 255);
+    public static readonly Color Unavailable = new(200, 230, 255);
     public static readonly Color Background = new(200, 230, 255);
 }

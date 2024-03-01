@@ -3,9 +3,9 @@
 public struct Configuration
 {
     public Dictionary<Coordinate, bool> coordinates;
-    int originDepth;
-    int originLeft;
-    int originRight;
+    public int originDepth;
+    public int originLeft;
+    public int originRight;
 
     public Configuration(Dictionary<Coordinate, bool> COORDS, int DEPTH, int LEFT, int RIGHT)
     {

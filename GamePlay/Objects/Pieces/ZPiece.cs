@@ -23,5 +23,7 @@ public class ZPiece : BasePiece
         configurations.Add(Orientation.EAST, new(horizontal, 0, 1, 1));
         configurations.Add(Orientation.SOUTH, new(vertical, 1, 1, 0));
         configurations.Add(Orientation.WEST, new(horizontal, 0, 1, 1));
+
+        MoveToUpNext();
     }
 }
