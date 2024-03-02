@@ -88,6 +88,7 @@ public class Grid
 
     public Tile GetTile(Coordinate COORDS)
     {
+        if (!Exists(COORDS)) return null;
         return tiles[COORDS];
     }
 

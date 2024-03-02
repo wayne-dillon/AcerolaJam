@@ -5,17 +5,12 @@ public class SquarePiece : BasePiece
 {
     public SquarePiece() : base(Colors.squarePiece)
     {
-        Dictionary<Coordinate, bool> coords = new()
-        {
-            { new(0,0), true },
-            { new(1,0), true },
-            { new(0,1), true },
-            { new (1,1), true },
-        };
-        configurations.Add(Orientation.NORTH, new(coords, 0, 0, 1));
-        configurations.Add(Orientation.EAST, new(coords, 0, 0, 1));
-        configurations.Add(Orientation.SOUTH, new(coords, 0, 0, 1));
-        configurations.Add(Orientation.WEST, new(coords, 0, 0, 1));
+        blockGrid.SetNorthCoords(new Coordinate[] { new(1, 0), new(0, 0), new(0, 1), new(1, 1) });
+
+        configurations.Add(Orientation.NORTH, new(blockGrid.NorthCoords(), 0, 0, 1));
+        configurations.Add(Orientation.EAST, new(blockGrid.EastCoords(), 0, 0, 1));
+        configurations.Add(Orientation.SOUTH, new(blockGrid.SouthCoords(), 0, 0, 1));
+        configurations.Add(Orientation.WEST, new(blockGrid.WestCoords(), 0, 0, 1));
 
         MoveToUpNext();
     }

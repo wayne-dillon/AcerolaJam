@@ -76,6 +76,7 @@
     <Compile Include="Engine\Utils\TransitionManager.cs" />
     <Compile Include="GamePlay\Enums\Orientation.cs" />
     <Compile Include="GamePlay\GameGlobals.cs" />
+    <Compile Include="GamePlay\Objects\BlockGrid.cs" />
     <Compile Include="GamePlay\Objects\Configuration.cs" />
     <Compile Include="GamePlay\Objects\Coordinate.cs" />
     <Compile Include="GamePlay\Objects\Grid.cs" />
