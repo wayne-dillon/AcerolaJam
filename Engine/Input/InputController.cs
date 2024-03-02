@@ -8,7 +8,7 @@ public class InputController
 
     public static bool Right() => Globals.keyboard.GetSingleOrLongPress("D") || Globals.keyboard.GetSingleOrLongPress("Right");
     
-    public static bool Up() => Globals.keyboard.GetSingleOrLongPress("W") || Globals.keyboard.GetSingleOrLongPress("Up");
+    public static bool Up() => Globals.keyboard.GetSinglePress("W") || Globals.keyboard.GetSinglePress("Up");
 
     public static bool Down() => Globals.keyboard.GetSingleOrLongPress("S") || Globals.keyboard.GetSingleOrLongPress("Down");
 

@@ -17,7 +17,7 @@ public class UI
 
     public void Update()
     {
-        if (Globals.gameState != GameState.MAIN_MENU && Globals.gameState != GameState.GAME_PLAY)
+        if (Globals.gameState != GameState.MAIN_MENU)
         {
             homeBtn.Update();
         }
@@ -25,7 +25,7 @@ public class UI
 
     public void Draw()
     {
-        if (Globals.gameState != GameState.MAIN_MENU && Globals.gameState != GameState.GAME_PLAY)
+        if (Globals.gameState != GameState.MAIN_MENU)
         {
             homeBtn.Draw();
         }

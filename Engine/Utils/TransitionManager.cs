@@ -21,11 +21,11 @@ public class TransitionManager
                 transState = TransitionState.PLAYING_OUT;
                 animation = new FadeOut(transTime);
                 animate = animation.Animate;
-                Music.SetFadeTime(transTime);
+                //Music.SetFadeTime(transTime);
                 return;
             case TransitionState.PLAYING_OUT:
-                if (transitionToState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY) 
-                    Music.FadeDown();
+                //if (transitionToState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY) 
+                //    Music.FadeDown();
                 if (animation.IsComplete())
                 {
                     waitTime = transTime;
@@ -51,11 +51,11 @@ public class TransitionManager
                 transState = TransitionState.PLAYING_IN;
                 animation = new FadeIn(transTime);
                 animate = animation.Animate;
-                Music.SetFadeTime(transTime);
+                // Music.SetFadeTime(transTime);
                 return;
             case TransitionState.PLAYING_IN:
-                if (transitionFromState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY) 
-                    Music.FadeUp();
+                //if (transitionFromState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY) 
+                //    Music.FadeUp();
                 if (animation.IsComplete())
                 {
                     transState = TransitionState.SET;

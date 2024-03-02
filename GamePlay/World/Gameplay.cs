@@ -16,7 +16,7 @@
 
         GameGlobals.grid = grid = new Grid();
         GameGlobals.score = 0;
-        GameGlobals.fallTime = 800;
+        GameGlobals.fallTime = 1000;
         fallTimer = new(GameGlobals.fallTime);
 
         currentPiece = BlockMaker.RandomPiece();
@@ -43,6 +43,15 @@
             if (InputController.RotateCCW()) currentPiece.RotateCounterClockwise();
             if (InputController.Left()) currentPiece.MoveLeft();
             if (InputController.Right()) currentPiece.MoveRight();
+            if (InputController.Up())
+            {
+                bool moved = true;
+                while (moved)
+                {
+                    moved = currentPiece.MoveDown();
+                }
+                fallTimer.ResetToZero();
+            }
             if (InputController.Down() || fallTimer.Test())
             {
                 fallTimer.ResetToZero();

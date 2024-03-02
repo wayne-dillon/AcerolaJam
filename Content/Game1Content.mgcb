@@ -82,3 +82,9 @@
 /processorParam:TextureFormat=Color
 /build:EmptyFrame.png
 
+#begin Sound/MainTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/MainTheme.wav
+

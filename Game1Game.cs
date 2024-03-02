@@ -13,6 +13,8 @@ public class Game1Game : Game
     private Music music;
     public UI ui;
 
+    private bool interacted;
+
     public Sprite background;
 
     Cursor cursor;
@@ -92,6 +94,12 @@ public class Game1Game : Game
         Globals.keyboard.Update();
         Globals.mouse.Update();
 
+        if (!interacted && Globals.mouse.LeftClick())
+        {
+            Music.SetTrack();
+            interacted = true;
+        }
+
         switch (Globals.gameState)
         {
             case GameState.MAIN_MENU:
@@ -145,6 +153,8 @@ public class Game1Game : Game
                     break;
             }
         }
+
+        ui.Draw();
 
         cursor.Draw();
 

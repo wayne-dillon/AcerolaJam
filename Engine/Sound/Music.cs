@@ -2,18 +2,16 @@ using Microsoft.Xna.Framework.Media;
 
 public class Music
 {
-    private static Song menuTheme;
-    private static Song gameTheme;
+    private static Song mainTheme;
     private static MyTimer fadeTime;
     private static Song currentSong;
     public static float volume = 0.5f;
 
     public Music()
     {
-        //menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
-        //gameTheme = Globals.content.Load<Song>("Sound//mainTheme");
-        //PlayOnRepeat(menuTheme);
+        mainTheme = Globals.content.Load<Song>("Sound//MainTheme");
         MediaPlayer.Volume = volume;
+        //PlayOnRepeat(mainTheme);
     }
 
     public static void SetTrack()
@@ -21,21 +19,17 @@ public class Music
         switch (Globals.gameState)
         {
             case GameState.GAME_PLAY:
-                PlayOnRepeat(gameTheme);
-                break;
             default:
-                PlayOnRepeat(menuTheme);
+                PlayOnRepeat(mainTheme);
                 break;
         }
     }
 
     private static void PlayOnRepeat(Song SONG)
     {
-        MediaPlayer.MediaStateChanged -= (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
-
-        currentSong = SONG;
+        currentSong = SONG; 
+        MediaPlayer.IsRepeating = true;
         MediaPlayer.Play(currentSong);
-        MediaPlayer.MediaStateChanged += (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
     }
 
     public static void SetPreferredVolume(object SENDER, object INFO)
