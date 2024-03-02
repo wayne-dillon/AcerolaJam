@@ -14,4 +14,16 @@ public class SquarePiece : BasePiece
 
         MoveToUpNext();
     }
+
+    public override void RotateClockwise()
+    {
+        if (isAberrant)
+            base.RotateClockwise();
+    }
+
+    public override void RotateCounterClockwise()
+    {
+        if (isAberrant)
+            base.RotateCounterClockwise();
+    }
 }

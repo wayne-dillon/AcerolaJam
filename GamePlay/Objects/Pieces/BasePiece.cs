@@ -5,6 +5,7 @@ public class BasePiece
     public bool placed = false;
     private Sprite sprite;
     public Color color;
+    protected bool isAberrant;
 
     protected BlockGrid blockGrid;
     protected Dictionary<Orientation, Configuration> configurations;
@@ -48,32 +49,45 @@ public class BasePiece
         return false;
     }
 
-    private void CheckTop()
+    private bool BlockedTop()
     {
         int topPos = originPos.Y + CurrentConfiguration.TopRow();
-        if (topPos < 0) originPos += new Coordinate(0, -CurrentConfiguration.TopRow());
+        if (topPos >= 0) return false;
+        Coordinate offset = new(0, -CurrentConfiguration.TopRow());
+        if (CheckForCollision(offset)) return true;
+        originPos += offset;
+        return false;
     }
 
-    private void CheckBottom()
-    {
-        int bottomPos = originPos.Y + CurrentConfiguration.BottomRow();
-        if (bottomPos >= GameGlobals.gridSize.Y)
-        {
-            originPos += new Coordinate(0, -CurrentConfiguration.BottomRow());
-            DropBlock();
-        }
-    }
-
-    private void CheckLeft()
+    private bool BlockedLeft()
     {
         int leftPos = originPos.X + CurrentConfiguration.LeftColumn();
-        if (leftPos < 0) originPos += new Coordinate(-CurrentConfiguration.LeftColumn(), 0);
+        if (leftPos >= 0) return false;
+        Coordinate offset = new(-CurrentConfiguration.LeftColumn(), 0);
+        if (CheckForCollision(offset)) return true;
+        originPos += offset;
+        return false;
     }
 
-    private void CheckRight()
+    private bool BlockedRight()
     {
         int rightPos = originPos.X + CurrentConfiguration.RightColumn();
-        if (rightPos >= GameGlobals.gridSize.X) originPos += new Coordinate(-CurrentConfiguration.RightColumn(), 0);
+        if (rightPos < GameGlobals.gridSize.X) return false;
+        Coordinate offset = new(-CurrentConfiguration.RightColumn(), 0);
+        if (CheckForCollision(offset)) return true;
+        originPos += offset;
+        return false;
+    }
+
+    private bool BlockedBottom()
+    {
+        int bottomPos = originPos.Y + CurrentConfiguration.BottomRow();
+        if (bottomPos < GameGlobals.gridSize.Y) return false;
+        Coordinate offset = new(0, -CurrentConfiguration.BottomRow());
+        if (CheckForCollision(offset)) return true;
+        originPos += offset;
+        DropBlock();
+        return false;
     }
 
     public void DropBlock()
@@ -105,7 +119,11 @@ public class BasePiece
     public bool MoveLeft()
     {
         Coordinate offset = new Coordinate(-1, 0);
-        if (CheckOutOfBounds(offset) || CheckForCollision(offset)) return false;
+        if (CheckOutOfBounds(offset) || CheckForCollision(offset))
+        {
+            SFXPlayer.PlaySound(SoundEffects.INVALID);
+            return false;
+        }
         originPos += offset;
         return true;
     }
@@ -113,7 +131,11 @@ public class BasePiece
     public bool MoveRight()
     {
         Coordinate offset = new Coordinate(1, 0);
-        if (CheckOutOfBounds(offset) || CheckForCollision(offset)) return false;
+        if (CheckOutOfBounds(offset) || CheckForCollision(offset))
+        {
+            SFXPlayer.PlaySound(SoundEffects.INVALID);
+            return false;
+        }
         originPos += offset;
         return true;
     }
@@ -128,27 +150,26 @@ public class BasePiece
         originPos = new(14, 1);
     }
 
-    public virtual void Mutate()
+    public virtual void RotateClockwise()
     {
-
-    }
-
-    public void RotateClockwise()
-    {
+        Orientation prev = currentOrientation;
         currentOrientation = currentOrientation == Orientation.WEST ? Orientation.NORTH : currentOrientation + 1;
-        CheckTop();
-        CheckBottom();
-        CheckLeft();
-        CheckRight();
+        if (CheckForCollision(new(0, 0)) || BlockedTop() || BlockedBottom() || BlockedLeft() || BlockedRight())
+        {
+            SFXPlayer.PlaySound(SoundEffects.INVALID);
+            currentOrientation = prev;
+        }
     }
 
-    public void RotateCounterClockwise()
+    public virtual void RotateCounterClockwise()
     {
+        Orientation prev = currentOrientation;
         currentOrientation = currentOrientation == Orientation.NORTH ? Orientation.WEST : currentOrientation - 1;
-        CheckTop();
-        CheckLeft();
-        CheckRight();
-        CheckBottom();
+        if (CheckForCollision(new(0, 0)) || BlockedTop() || BlockedBottom() || BlockedLeft() || BlockedRight())
+        {
+            SFXPlayer.PlaySound(SoundEffects.INVALID);
+            currentOrientation = prev;
+        }
     }
 
     public void Draw()

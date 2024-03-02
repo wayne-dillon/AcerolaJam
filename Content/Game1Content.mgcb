@@ -88,3 +88,9 @@
 /processorParam:Quality=Best
 /build:Sound/MainTheme.wav
 
+#begin Sound/Invalid.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Invalid.wav
+
