@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 public class UI
 {
     private readonly Clickable homeBtn;
+    private RoundEndOverlay overlay;
 
     public UI()
     {
@@ -13,6 +14,8 @@ public class UI
                                     .WithButtonAction(TransitionManager.ChangeGameState)
                                     .WithButtonInfo(GameState.MAIN_MENU)
                                     .BuildClickable();
+
+        overlay = new RoundEndOverlay();
     }
 
     public void Update()
@@ -21,6 +24,11 @@ public class UI
         {
             homeBtn.Update();
         }
+
+        if (Globals.gameState == GameState.GAME_PLAY && !GameGlobals.gameInProgress)
+        {
+            overlay.Update();
+        }
     }
 
     public void Draw()
@@ -28,6 +36,11 @@ public class UI
         if (Globals.gameState != GameState.MAIN_MENU)
         {
             homeBtn.Draw();
+        }
+
+        if (Globals.gameState == GameState.GAME_PLAY && !GameGlobals.gameInProgress)
+        {
+            overlay.Draw();
         }
     }
 }

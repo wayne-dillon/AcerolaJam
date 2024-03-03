@@ -4,6 +4,7 @@
     private BasePiece currentPiece;
     private BasePiece nextPiece;
     private TextComponent scoreDisplay;
+    private TextComponent highScoreDisplay;
     private MyTimer fallTimer;
 
     public GamePlay()
@@ -17,13 +18,15 @@
         GameGlobals.grid = grid = new Grid();
         GameGlobals.score = 0;
         GameGlobals.fallTime = 1000;
+        GameGlobals.aberrationPerc = 50;
         fallTimer = new(GameGlobals.fallTime);
 
         currentPiece = BlockMaker.RandomPiece();
         currentPiece.MoveToGrid();
         nextPiece = BlockMaker.RandomPiece();
 
-        scoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 100)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+        highScoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 100)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+        scoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 150)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
     }
 
     public void Update()
@@ -32,11 +35,15 @@
         {
             currentPiece = nextPiece;
             currentPiece.MoveToGrid();
+            if (currentPiece.CheckForCollision(new(0,0)))
+            {
+                GameGlobals.gameInProgress = false;
+            }
 
             nextPiece = BlockMaker.RandomPiece();
         }
 
-        if (!GameGlobals.animating)
+        if (GameGlobals.gameInProgress && !GameGlobals.animating)
         {
             fallTimer.UpdateTimer();
             if (InputController.RotateCW()) currentPiece.RotateClockwise();
@@ -62,6 +69,7 @@
         grid.Update();
         currentPiece.Update();
         nextPiece.Update();
+        highScoreDisplay.Update("Hi-Score: " + GameGlobals.highScore);
         scoreDisplay.Update("Score: " + GameGlobals.score);
     }
 
@@ -75,6 +83,7 @@
         grid.Draw();
         currentPiece.Draw();
         nextPiece.Draw();
+        highScoreDisplay.Draw();
         scoreDisplay.Draw();
     }
 }

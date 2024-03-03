@@ -7,36 +7,45 @@ public class SettingsMenu
     private readonly List<LinkedButton> buttons = new();
     private Tab currentTab = Tab.OPTIONS;
     private readonly TextComponent howToPlayText;
-    private readonly TextComponent creditsText;
+    private readonly TextComponent inputText;
+    private readonly TextComponent controlText;
 
-    private readonly string story = "";
-
-    private readonly string credits = "Design/Programming By\nWayne Dillon\n\n\n"
-                                    + "Music/SFX by\nAlia Scott";
+    private readonly string howToPlay = "Complete rows from the falling blocks to score points!";
+    private readonly string inputs = "'A' / Left Arrow"
+                                        + "\n'D' / Right Arrow"
+                                        + "\n'S' / Down Arrow"
+                                        + "\n'W' / Up Arrow"
+                                        + "\n'Q' / 'X'"
+                                        + "\n'E' / 'C'";
+    private readonly string controls = "Move block left"
+                                        + "\nMove block right"
+                                        + "\nMove block down"
+                                        + "\nDrop block"
+                                        + "\nRotate block counter-clockwise"
+                                        + "\nRotate block clockwise";
 
     private OptionsMenu options;
 
     private enum Tab
     {
         OPTIONS,
-        HOW_TO_PLAY,
-        CREDITS
+        HOW_TO_PLAY
     }
 
     public SettingsMenu()
     {
-        howToPlayText = new TextComponentBuilder().WithText(story).WithOffset(new Vector2(-50, 0)).Build();
-        creditsText = new TextComponentBuilder().WithText(credits).Build();
+        howToPlayText = new TextComponentBuilder().WithText(howToPlay).WithScreenAlignment(Alignment.TOP).WithOffset(new Vector2(0, 220)).Build();
+        inputText = new TextComponentBuilder().WithText(inputs).WithOffset(new Vector2(-340, 80)).Build();
+        controlText = new TextComponentBuilder().WithText(controls).WithOffset(new Vector2(230, 80)).Build();
 
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
-                                                        .WithDims(new Vector2(432, 96))
-                                                        .WithScreenAlignment(Alignment.TOP_LEFT)
+                                                        .WithDims(new Vector2(250, 64))
+                                                        .WithScreenAlignment(Alignment.TOP)
                                                         .WithHoverScale(new Vector2(1.01f, 1.01f))
                                                         .WithButtonAction(SwitchTabs);
 
-        buttons.Add(buttonBuilder.WithText("How to Play").WithOffset(new Vector2(960, 82)).WithButtonInfo(Tab.HOW_TO_PLAY).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Credits").WithOffset(new Vector2(1460, 82)).WithButtonInfo(Tab.CREDITS).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Options").WithOffset(new Vector2(460, 82)).WithButtonInfo(Tab.OPTIONS).WithAvailable(false).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("How to Play").WithOffset(new Vector2(130, 82)).WithButtonInfo(Tab.HOW_TO_PLAY).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Options").WithOffset(new Vector2(-130, 82)).WithButtonInfo(Tab.OPTIONS).WithAvailable(false).BuildLinkedButton());
 
         foreach (LinkedButton button in buttons)
         {
@@ -60,9 +69,8 @@ public class SettingsMenu
                 break;
             case Tab.HOW_TO_PLAY:
                 howToPlayText.Update();
-                break;
-            case Tab.CREDITS:
-                creditsText.Update();
+                inputText.Update();
+                controlText.Update();
                 break;
         }
     }
@@ -89,9 +97,8 @@ public class SettingsMenu
                 break;
             case Tab.HOW_TO_PLAY:
                 howToPlayText.Draw();
-                break;
-            case Tab.CREDITS:
-                creditsText.Draw();
+                inputText.Draw();
+                controlText.Draw();
                 break;
         }
     }

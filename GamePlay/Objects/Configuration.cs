@@ -3,16 +3,10 @@
 public struct Configuration
 {
     public Dictionary<Coordinate, bool> coordinates;
-    private int originDepth;
-    private int originLeft;
-    private int originRight;
 
-    public Configuration(Dictionary<Coordinate, bool> COORDS, int DEPTH, int LEFT, int RIGHT)
+    public Configuration(Dictionary<Coordinate, bool> COORDS)
     {
         coordinates = COORDS;
-        originDepth = DEPTH;
-        originLeft = LEFT;
-        originRight = RIGHT;
     }
 
     public int TopRow()

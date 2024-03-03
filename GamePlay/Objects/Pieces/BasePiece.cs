@@ -21,7 +21,16 @@ public class BasePiece
         configurations = new Dictionary<Orientation, Configuration>();
         currentOrientation = EnumHelper.RandomOrientation();
         sprite = new SpriteBuilder().WithPath("Block").WithColor(color).WithDims(new(32,32)).WithTransitionable(false).Build();
+        CheckAberration();
+
         blockGrid = new BlockGrid();
+        blockGrid.SetNorthCoords(GetCoords());
+        configurations.Add(Orientation.NORTH, new(blockGrid.NorthCoords()));
+        configurations.Add(Orientation.EAST, new(blockGrid.EastCoords()));
+        configurations.Add(Orientation.SOUTH, new(blockGrid.SouthCoords()));
+        configurations.Add(Orientation.WEST, new(blockGrid.WestCoords()));
+
+        MoveToUpNext();
     }
 
     public void Update()
@@ -29,7 +38,17 @@ public class BasePiece
         sprite.Update();
     }
 
-    private bool CheckForCollision(Coordinate offset)
+    protected virtual Coordinate[] GetCoords() => new Coordinate[0];
+
+    protected void CheckAberration()
+    {
+        if (Globals.random.Next(0, 100) < GameGlobals.aberrationPerc)
+        {
+            isAberrant = true;
+        }
+    }
+
+    public bool CheckForCollision(Coordinate offset)
     {
         foreach (var coord in CurrentConfiguration.coordinates)
         {

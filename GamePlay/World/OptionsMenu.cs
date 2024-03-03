@@ -15,11 +15,11 @@ public class OptionsMenu
                                                 .Build();
         sfxVolumeText = new TextComponentBuilder().WithText("SFX Volume")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
-                                                .WithOffset(new Vector2(-250, -80))
+                                                .WithOffset(new Vector2(-250, 80))
                                                 .Build();
 
         musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(150, 0), Music.GetVolume(), Music.SetPreferredVolume);
-        sfxVolumeSlider = new Slider(Alignment.CENTER, new Vector2(150, -80), SFXPlayer.volume,
+        sfxVolumeSlider = new Slider(Alignment.CENTER, new Vector2(150, 80), SFXPlayer.volume,
                                     (sender, info) => { SFXPlayer.volume = (float)info; });
     }
 

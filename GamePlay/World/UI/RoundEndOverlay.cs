@@ -10,11 +10,11 @@ public class RoundEndOverlay
     {
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
                                                         .WithDims(new Vector2(243, 37));
-        resetBtn = buttonBuilder.WithOffset(new Vector2(0, 150))
+        resetBtn = buttonBuilder.WithOffset(new Vector2(0, -50))
                             .WithText("Play Again")
                             .WithButtonAction(Globals.reset)
                             .BuildButton();
-        backBtn = buttonBuilder.WithOffset(new Vector2(0, 200))
+        backBtn = buttonBuilder.WithOffset(new Vector2(0, 50))
                             .WithText("Main Menu")
                             .WithButtonAction(TransitionManager.ChangeGameState)
                             .WithButtonInfo(GameState.MAIN_MENU)

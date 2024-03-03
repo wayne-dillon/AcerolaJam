@@ -71,6 +71,7 @@ public class Grid
         if (filledRows.Count != 0)
         {
             GameGlobals.score += 100 * filledRows.Count * filledRows.Count;
+            if (GameGlobals.score > GameGlobals.highScore) GameGlobals.highScore = GameGlobals.score;
             GameGlobals.completedRows += filledRows.Count;
             GameGlobals.animating = true;
             animationTimer.ResetToZero();
