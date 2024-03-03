@@ -2,5 +2,6 @@
 {
     MAIN_MENU,
     SETTINGS,
+    CUSTOM,
     GAME_PLAY
 }

@@ -12,7 +12,7 @@ public class Checkbox : Clickable
                 ANIMATIONS, Vector2.One, true, BUTTONCLICKED, INFO, ISTRANSITIONABLE) 
     {
         isChecked = ISCHECKED;
-        check = new SpriteBuilder().WithPath("UI//OvalFill20x20").WithDims(dims).WithParent(this).BuildChild();
+        check = new SpriteBuilder().WithPath("rect").WithDims(dims).WithParent(this).BuildChild();
     }
 
     public override void Update()

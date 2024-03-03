@@ -19,6 +19,12 @@ public class MainMenu
                                 .BuildButton());
 
         buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 200))
+                                .WithText("Customise")
+                                .WithButtonAction(TransitionManager.ChangeGameState)
+                                .WithButtonInfo(GameState.CUSTOM)
+                                .BuildButton());
+
+        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 300))
                                 .WithText("Options")
                                 .WithButtonAction(TransitionManager.ChangeGameState)
                                 .WithButtonInfo(GameState.SETTINGS)

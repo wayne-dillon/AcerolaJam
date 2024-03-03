@@ -17,8 +17,7 @@
 
         GameGlobals.grid = grid = new Grid();
         GameGlobals.score = 0;
-        GameGlobals.fallTime = 1000;
-        GameGlobals.aberrationPerc = 50;
+        GameGlobals.fallTime = GameGlobals.baseFallTime;
         fallTimer = new(GameGlobals.fallTime);
 
         currentPiece = BlockMaker.RandomPiece();
@@ -57,11 +56,11 @@
                 {
                     moved = currentPiece.MoveDown();
                 }
-                fallTimer.ResetToZero();
+                fallTimer.Reset(GameGlobals.fallTime);
             }
-            if (InputController.Down() || fallTimer.Test())
+            if (InputController.Down() || (GameGlobals.fallTime != 0 && fallTimer.Test()))
             {
-                fallTimer.ResetToZero();
+                fallTimer.Reset(GameGlobals.fallTime);
                 currentPiece.MoveDown();
             }
         }

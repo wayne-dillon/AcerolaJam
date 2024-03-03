@@ -93,6 +93,7 @@
     <Compile Include="GamePlay\Utils\EnumHelper.cs" />
     <Compile Include="GamePlay\World\GamePlay.cs" />
     <Compile Include="GamePlay\World\MainMenu.cs" />
+    <Compile Include="GamePlay\World\CustomGameMenu.cs" />
     <Compile Include="GamePlay\World\OptionsMenu.cs" />
     <Compile Include="GamePlay\World\SettingsMenu.cs" />
     <Compile Include="GamePlay\World\UI\RoundEndOverlay.cs" />

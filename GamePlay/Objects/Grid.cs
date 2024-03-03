@@ -65,14 +65,19 @@ public class Grid
                     filled = false; break;
                 }
             }
-            if (filled) filledRows.Add(i);
+            if (filled)
+            {
+                filledRows.Add(i);
+                GameGlobals.completedRows += filledRows.Count;
+                if (GameGlobals.fallTime != 0 && GameGlobals.increaseThreshold != 0 && GameGlobals.completedRows % GameGlobals.increaseThreshold == 0) 
+                    GameGlobals.fallTime = (int)(GameGlobals.fallTime * 0.95f);
+            }
         }
 
         if (filledRows.Count != 0)
         {
             GameGlobals.score += 100 * filledRows.Count * filledRows.Count;
             if (GameGlobals.score > GameGlobals.highScore) GameGlobals.highScore = GameGlobals.score;
-            GameGlobals.completedRows += filledRows.Count;
             GameGlobals.animating = true;
             animationTimer.ResetToZero();
         }

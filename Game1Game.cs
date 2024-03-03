@@ -9,6 +9,7 @@ public class Game1Game : Game
 {
     private MainMenu mainMenu;
     private SettingsMenu settingsMenu;
+    private CustomGameMenu customGameMenu;
     private GamePlay gamePlay;
     private Music music;
     public UI ui;
@@ -66,6 +67,7 @@ public class Game1Game : Game
         music = new Music();
         mainMenu = new MainMenu();
         settingsMenu = new SettingsMenu();
+        customGameMenu = new CustomGameMenu();
         gamePlay = new GamePlay();
         Globals.reset = gamePlay.Reset;
         ui = new UI();
@@ -108,6 +110,9 @@ public class Game1Game : Game
             case GameState.SETTINGS:
                 settingsMenu.Update();
                 break;
+            case GameState.CUSTOM:
+                customGameMenu.Update();
+                break;
             case GameState.GAME_PLAY:
                 gamePlay.Update();
                 break;
@@ -147,6 +152,9 @@ public class Game1Game : Game
                     break;
                 case GameState.SETTINGS:
                     settingsMenu.Draw();
+                    break;
+                case GameState.CUSTOM:
+                    customGameMenu.Draw();
                     break;
                 case GameState.GAME_PLAY:
                     gamePlay.Draw();
