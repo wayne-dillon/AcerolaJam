@@ -12,11 +12,13 @@ public class Game1Game : Game
     private CustomGameMenu customGameMenu;
     private GamePlay gamePlay;
     private Music music;
+    private Effects effects;
     public UI ui;
 
     private bool interacted;
 
     public Sprite background;
+    public Sprite foreground;
 
     Cursor cursor;
 
@@ -65,6 +67,7 @@ public class Game1Game : Game
         Globals.defaultFont = Fonts.defaultFont24;
 
         music = new Music();
+        effects = new Effects();
         mainMenu = new MainMenu();
         settingsMenu = new SettingsMenu();
         customGameMenu = new CustomGameMenu();
@@ -73,10 +76,16 @@ public class Game1Game : Game
         ui = new UI();
 
         background = new SpriteBuilder().WithPath("rect")
-                                        .WithColor(Color.LightGoldenrodYellow)
+                                        .WithColor(Colors.Background)
                                         .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))
                                         .WithTransitionable(false)
                                         .Build();
+        foreground = new SpriteBuilder().WithPath("rect")
+                                        .WithColor(Colors.White)
+                                        .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))
+                                        .WithTransitionable(false)
+                                        .Build();
+        foreground.effect = Effects.lines;
     }
 
     /// <summary>
@@ -93,6 +102,7 @@ public class Game1Game : Game
 
         // TODO: Add your update logic here
         Globals.gameTime = gameTime;
+        effects.Update();
         Globals.keyboard.Update();
         Globals.mouse.Update();
 
@@ -165,6 +175,8 @@ public class Game1Game : Game
         ui.Draw();
 
         cursor.Draw();
+
+        foreground.Draw();
 
         Globals.spriteBatch.End();
 

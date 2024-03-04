@@ -24,12 +24,6 @@ public class MainMenu
                                 .WithButtonInfo(GameState.CUSTOM)
                                 .BuildButton());
 
-        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 300))
-                                .WithText("Options")
-                                .WithButtonAction(TransitionManager.ChangeGameState)
-                                .WithButtonInfo(GameState.SETTINGS)
-                                .BuildButton());
-
         continueButton = buttonBuilder.WithOffset(new Vector2(0, 0))
                                     .WithText("Continue")
                                     .WithAvailable(GameGlobals.gameInProgress)

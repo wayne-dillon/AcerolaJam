@@ -7,7 +7,7 @@ public class SpriteBuilder
 {
     private string Path, Text = "";
     private SpriteFont Font;
-    private Vector2 Offset, Dims, HoverScale = new(1.1f, 1.1f);
+    private Vector2 Offset, Dims, HoverScale = new(1.01f, 1.01f);
     private Alignment ScreenAlignment = Alignment.CENTER;
     private Color Color = Color.White;
     private Color HoverColor = Color.AliceBlue;

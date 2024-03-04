@@ -22,6 +22,7 @@ public class BasePiece
         currentOrientation = EnumHelper.RandomOrientation();
         sprite = new SpriteBuilder().WithPath("Block").WithColor(color).WithDims(new(32,32)).WithTransitionable(false).Build();
         CheckAberration();
+        if (isAberrant) sprite.effect = Effects.glitch;
 
         blockGrid = new BlockGrid();
         blockGrid.SetNorthCoords(GetCoords());

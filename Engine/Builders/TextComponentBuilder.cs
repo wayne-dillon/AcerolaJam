@@ -9,7 +9,7 @@ public class TextComponentBuilder
     private Vector2 Offset;
     private Alignment ScreenAlignment = Alignment.CENTER;
     private Alignment TextAlignment = Alignment.CENTER;
-    private Color Color = Color.Black;
+    private Color Color = Colors.White;
     private List<IAnimate> Animations = new();
     private bool IsTransitionable = true;
 

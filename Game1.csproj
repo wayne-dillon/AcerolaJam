@@ -65,6 +65,7 @@
     <Compile Include="Engine\Output\Display\Sprite\UI\StatBar.cs" />
     <Compile Include="Engine\Output\Display\Sprite\UI\Tooltip.cs" />
     <Compile Include="Engine\Output\Display\TextComponent.cs" />
+    <Compile Include="Engine\Output\Effects.cs" />
     <Compile Include="Engine\Output\FPSDisplay.cs" />
     <Compile Include="Engine\Sound\Music.cs" />
     <Compile Include="Engine\Sound\SFXPlayer.cs" />

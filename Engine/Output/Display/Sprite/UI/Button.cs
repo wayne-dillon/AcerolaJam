@@ -10,14 +10,21 @@ public class Button : Clickable
     public Button(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, Color HOVERCOLOR, Color UNAVAILABLECOLOR,
                 Vector2 HOVERSCALE, List<IAnimate> ANIMATIONS, string TEXT, bool ISAVAILABLE, EventHandler<object> BUTTONCLICKED,
                 object INFO, bool ISTRANSITIONABLE) 
-        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, HOVERCOLOR, UNAVAILABLECOLOR, ANIMATIONS, HOVERSCALE, ISAVAILABLE, BUTTONCLICKED, INFO, ISTRANSITIONABLE) 
+        : base(PATH, ALIGNMENT, OFFSET, DIMS, Colors.White, Colors.OffWhite, Colors.Gray, ANIMATIONS, HOVERSCALE, ISAVAILABLE, BUTTONCLICKED, INFO, ISTRANSITIONABLE) 
     {
-        text = new TextComponentBuilder().WithText(TEXT).WithScreenAlignment(ALIGNMENT).WithOffset(OFFSET).Build();
+        text = new TextComponentBuilder().WithText(TEXT).WithColor(Colors.Black).WithScreenAlignment(ALIGNMENT).WithOffset(OFFSET).Build();
     }
 
     public override void Update()
     {
         base.Update();
+        if (isAvailable)
+        {
+            text.color = Colors.Black;
+        } else
+        {
+            text.color = Colors.White;
+        }
         text.Update();
     }
 
