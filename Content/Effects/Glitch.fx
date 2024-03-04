@@ -13,20 +13,28 @@ struct VertexShaderOutput
 	float2 TextureCoordinates : TEXCOORD0;
 };
 
+bool IsBetween(float value, float lower, float upper)
+{
+    return value >= lower && value <= upper;
+}
+
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
     float3 col = input.Color;
     
-    if (time % 4 < 0.25)
+    if (IsBetween((time / 20) % 7, 2, 4))
     {
-        float yRem = ((input.TextureCoordinates.y * 500) + time) % 20;
-        if (yRem > 16)
+        float xClamp = 0;
+        if (IsBetween(((input.TextureCoordinates.x * 20) + time) % 20, 0, 13))
+            xClamp = 1;
+        float yRem = ((input.TextureCoordinates.y * 20) + time + xClamp) % 20;
+        if (IsBetween(yRem, 16.0, 20))
         {
             col = float3(0.0, 0.0, 0.0);
         }
-        if (yRem > 11 && yRem < 14)
+        if (IsBetween(yRem, 11.0, 14.0))
         {
-            col = float3(0.0, 0.0, 0.0);
+            col = float3(1.0, 1.0, 1.0);
         }
     }
     

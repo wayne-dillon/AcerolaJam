@@ -15,6 +15,8 @@ public class BasePiece
     private Coordinate originPos;
     public Coordinate OriginPos {  get { return originPos; } }
 
+    private Vector2 offset = Vector2.Zero;
+
     public BasePiece(Color COLOR)
     {
         color = COLOR;
@@ -163,11 +165,15 @@ public class BasePiece
     public void MoveToGrid()
     {
         originPos = new(5, -CurrentConfiguration.TopRow());
+        offset = Vector2.Zero;
     }
 
     protected void MoveToUpNext()
     {
-        originPos = new(16, 3);
+        originPos = new(18, 5);
+        int upDown = CurrentConfiguration.TopRow() + CurrentConfiguration.BottomRow();
+        int leftRight = CurrentConfiguration.LeftColumn() + CurrentConfiguration.RightColumn();
+        offset = new(-leftRight * 32 / 2, -upDown * 32 / 2);
     }
 
     public virtual void RotateClockwise()
@@ -198,7 +204,7 @@ public class BasePiece
         {
             if (coord.Value)
             {
-                sprite.Draw(EnumHelper.ScreenPos(coord.Key + originPos));
+                sprite.Draw(EnumHelper.ScreenPos(coord.Key + originPos) + offset);
             }
         }
     }

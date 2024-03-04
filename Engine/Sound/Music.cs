@@ -5,7 +5,7 @@ public class Music
     private static Song mainTheme;
     private static MyTimer fadeTime;
     private static Song currentSong;
-    public static float volume = 0.5f;
+    public static float volume = 0.0f;
 
     public Music()
     {

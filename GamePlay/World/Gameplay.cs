@@ -33,7 +33,7 @@ public class GamePlay
 
         backdrops = new();
         backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(384,576)).WithColor(Colors.Black).Build());
-        backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(176,176)).WithColor(Colors.Black).WithAbsolutePosition(EnumHelper.ScreenPos(new(16, 3))).Build());
+        backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(176,176)).WithColor(Colors.Black).WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 5))).Build());
     }
 
     public void Update()
