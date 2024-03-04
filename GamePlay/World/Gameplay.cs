@@ -1,5 +1,9 @@
-﻿public class GamePlay
+﻿using System.Collections.Generic;
+
+public class GamePlay
 {
+    private List<Sprite> backdrops;
+
     private Grid grid;
     private BasePiece currentPiece;
     private BasePiece nextPiece;
@@ -26,6 +30,10 @@
 
         highScoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 100)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
         scoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 150)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+
+        backdrops = new();
+        backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(384,576)).WithColor(Colors.Black).Build());
+        backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(176,176)).WithColor(Colors.Black).WithAbsolutePosition(EnumHelper.ScreenPos(new(16, 3))).Build());
     }
 
     public void Update()
@@ -70,6 +78,11 @@
         nextPiece.Update();
         highScoreDisplay.Update("Hi-Score: " + GameGlobals.highScore);
         scoreDisplay.Update("Score: " + GameGlobals.score);
+
+        foreach (var drop in backdrops)
+        {
+            drop.Update();
+        }
     }
 
     public void Reset(object SENDER, object INFO)
@@ -79,6 +92,10 @@
 
     public void Draw()
     {
+        foreach (var drop in backdrops)
+        {
+            drop.Draw();
+        }
         grid.Draw();
         currentPiece.Draw();
         nextPiece.Draw();

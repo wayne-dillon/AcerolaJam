@@ -167,7 +167,7 @@ public class BasePiece
 
     protected void MoveToUpNext()
     {
-        originPos = new(14, 1);
+        originPos = new(16, 3);
     }
 
     public virtual void RotateClockwise()

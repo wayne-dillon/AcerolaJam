@@ -80,6 +80,7 @@ public class Game1Game : Game
                                         .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))
                                         .WithTransitionable(false)
                                         .Build();
+        background.effect = Effects.bkg;
         foreground = new SpriteBuilder().WithPath("rect")
                                         .WithColor(Colors.White)
                                         .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))

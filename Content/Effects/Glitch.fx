@@ -15,15 +15,22 @@ struct VertexShaderOutput
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-	if (time > 90)
+    float3 col = input.Color;
+    
+    if (time % 4 < 0.25)
     {
-        float yRem = (input.TextureCoordinates.y + time / 100) * 1280 % 10;
-        float alpha = 0.75 + (yRem / 40);
-        float4 color = float4(input.Color.r, input.Color.g, input.Color.b, alpha);
-        return tex2D(SpriteTextureSampler, input.TextureCoordinates) * color;
+        float yRem = ((input.TextureCoordinates.y * 500) + time) % 20;
+        if (yRem > 16)
+        {
+            col = float3(0.0, 0.0, 0.0);
+        }
+        if (yRem > 11 && yRem < 14)
+        {
+            col = float3(0.0, 0.0, 0.0);
+        }
     }
-
-    return tex2D(SpriteTextureSampler, input.TextureCoordinates) * input.Color;
+    
+    return tex2D(SpriteTextureSampler, input.TextureCoordinates) * float4(col, 1.0);
 }
 
 technique SpriteDrawing

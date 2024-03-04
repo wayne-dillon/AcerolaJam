@@ -19,7 +19,7 @@ public class Effects
         time++;
         time %= 100000;
         lines.Parameters["time"]?.SetValue(time / 100000);
-        bkg.Parameters["time"]?.SetValue(time / 100000);
-        glitch.Parameters["time"]?.SetValue(time % 100);
+        bkg.Parameters["time"]?.SetValue(time / 200);
+        glitch.Parameters["time"]?.SetValue(time / 150);
     }
 }
