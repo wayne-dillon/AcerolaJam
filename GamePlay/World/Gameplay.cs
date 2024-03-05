@@ -7,6 +7,7 @@ public class GamePlay
     private Grid grid;
     private BasePiece currentPiece;
     private BasePiece nextPiece;
+    private List<TextComponent> text;
     private TextComponent scoreDisplay;
     private TextComponent highScoreDisplay;
     private MyTimer fallTimer;
@@ -28,8 +29,15 @@ public class GamePlay
         currentPiece.MoveToGrid();
         nextPiece = BlockMaker.RandomPiece();
 
-        highScoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 100)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
-        scoreDisplay = new TextComponentBuilder().WithAbsolutePosition(new(100, 150)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+        highScoreDisplay = new TextComponentBuilder().WithFont(Fonts.defaultFont36).WithAbsolutePosition(new(100, 180)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+        scoreDisplay = new TextComponentBuilder().WithFont(Fonts.defaultFont36).WithAbsolutePosition(new(100, 360)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+        text = new()
+        {
+            scoreDisplay,
+            highScoreDisplay
+        };
+        text.Add(new TextComponentBuilder().WithText("Hi-Score:").WithAbsolutePosition(new(100, 120)).WithTextAlignment(Alignment.CENTER_LEFT).Build());
+        text.Add(new TextComponentBuilder().WithText("Score:").WithAbsolutePosition(new(100, 300)).WithTextAlignment(Alignment.CENTER_LEFT).Build());
 
         backdrops = new();
         backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(384,576)).WithColor(Colors.Black).Build());
@@ -76,8 +84,13 @@ public class GamePlay
         grid.Update();
         currentPiece.Update();
         nextPiece.Update();
-        highScoreDisplay.Update("Hi-Score: " + GameGlobals.highScore);
-        scoreDisplay.Update("Score: " + GameGlobals.score);
+        highScoreDisplay.Update("" + GameGlobals.highScore);
+        scoreDisplay.Update("" + GameGlobals.score);
+
+        foreach (var textItem in text)
+        {
+            if (textItem != highScoreDisplay && textItem != scoreDisplay) textItem.Update();
+        }
 
         foreach (var drop in backdrops)
         {
@@ -99,7 +112,9 @@ public class GamePlay
         grid.Draw();
         currentPiece.Draw();
         nextPiece.Draw();
-        highScoreDisplay.Draw();
-        scoreDisplay.Draw();
+        foreach (var textItem in text)
+        {
+            textItem.Draw();
+        }
     }
 }

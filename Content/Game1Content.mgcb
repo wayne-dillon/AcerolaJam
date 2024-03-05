@@ -142,3 +142,33 @@
 /processorParam:DebugMode=Auto
 /build:Effects/Rainbow.fx
 
+#begin Effects/Block.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Effects/Block.fx
+
+#begin Fonts/Bungee36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts/Bungee36.spritefont
+
+#begin Fonts/Bungee54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts/Bungee54.spritefont
+
+#begin Fonts/Bungee108.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Smoothing=Normal
+/build:Fonts/Bungee108.spritefont
+

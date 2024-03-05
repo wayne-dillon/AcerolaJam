@@ -1,21 +1,23 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 public class TextComponentBuilder
 {
     private string Text = "";
     private List<string> TextList = new();
-    private float LineSpacing = 5;
+    private SpriteFont Font = Globals.defaultFont;
+    private float LineSpacing = 0;
     private Vector2 Offset;
     private Alignment ScreenAlignment = Alignment.CENTER;
     private Alignment TextAlignment = Alignment.CENTER;
-    private Color Color = Colors.White;
+    private Color Color = Colors.Black;
     private List<IAnimate> Animations = new();
     private bool IsTransitionable = true;
 
-    public TextComponent Build() => new(Text, TextAlignment, ScreenAlignment, Offset, Color, Animations, IsTransitionable);
+    public TextComponent Build() => new(Text, Font, TextAlignment, ScreenAlignment, Offset, Color, Animations, IsTransitionable);
 
-    public MultiLineTextComponent BuildMultiLine() => new(TextList, LineSpacing, TextAlignment, ScreenAlignment, Offset, Color, Animations, IsTransitionable);
+    public MultiLineTextComponent BuildMultiLine() => new(TextList, Font, LineSpacing, TextAlignment, ScreenAlignment, Offset, Color, Animations, IsTransitionable);
 
     public TextComponentBuilder WithText(string TEXT)
     {
@@ -28,6 +30,13 @@ public class TextComponentBuilder
         TextList = TEXTLIST;
         return this;
     }
+
+    public TextComponentBuilder WithFont(SpriteFont FONT)
+    {
+        Font = FONT;
+        return this;
+    }
+
     public TextComponentBuilder WithLineSpacing(float SPACING)
     {
         LineSpacing = SPACING;

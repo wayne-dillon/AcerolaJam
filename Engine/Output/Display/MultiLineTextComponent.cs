@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 public class MultiLineTextComponent : TextComponent
 {
@@ -20,8 +21,8 @@ public class MultiLineTextComponent : TextComponent
         }
     }
 
-    public MultiLineTextComponent(List<string> TEXTLIST, float LINESPACING, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, List<IAnimate> ANIMATIONS, bool ISTRANSITIONABLE)
-        : base("", TEXTALIGNMENT, SCREENALIGNMENT, OFFSET, COLOR, ANIMATIONS, ISTRANSITIONABLE)
+    public MultiLineTextComponent(List<string> TEXTLIST, SpriteFont FONT, float LINESPACING, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, List<IAnimate> ANIMATIONS, bool ISTRANSITIONABLE)
+        : base("", FONT, TEXTALIGNMENT, SCREENALIGNMENT, OFFSET, COLOR, ANIMATIONS, ISTRANSITIONABLE)
     {
         stringList = TEXTLIST;
         lineSpacing = LINESPACING;

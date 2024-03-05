@@ -7,6 +7,7 @@ public class Grid
     private readonly Dictionary<Coordinate, Tile> tiles;
     private List<int> filledRows;
     private MyTimer animationTimer;
+    private Sprite filledLine;
 
     public Grid()
     {
@@ -14,7 +15,7 @@ public class Grid
         int y = GameGlobals.gridSize.Y;
         tiles = new();
         filledRows = new();
-        animationTimer = new(300);
+        animationTimer = new(500);
 
         for (int i = 0; i < x; i++)
         {
@@ -24,6 +25,7 @@ public class Grid
                 tiles.Add(coord, new Tile(coord, Colors.White));
             }
         }
+        filledLine = new SpriteBuilder().WithPath("rect").WithDims(new(32 * x, 32)).Build();
     }
 
     public void Update()
@@ -50,6 +52,7 @@ public class Grid
         {
             CheckForFilledRows();
         }
+        filledLine.Update();
     }
 
     private void CheckForFilledRows()
@@ -130,6 +133,10 @@ public class Grid
         foreach (Tile tile in tiles.Values)
         {
             tile.Draw();
+        }
+        foreach (int row in filledRows)
+        {
+            filledLine.Draw(new Vector2(640, EnumHelper.ScreenPos(new(0, row)).Y));
         }
     }
 }

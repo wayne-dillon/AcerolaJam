@@ -9,12 +9,12 @@ public class TextComponent : Animatable
     protected Vector2 absolutePos;
     private readonly Alignment textAlignment;
 
-    public TextComponent(string TEXT, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, List<IAnimate> ANIMATIONS, bool ISTRANSITIONABLE)
+    public TextComponent(string TEXT, SpriteFont FONT, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, List<IAnimate> ANIMATIONS, bool ISTRANSITIONABLE)
         : base(COLOR, Coordinates.Get(SCREENALIGNMENT) + OFFSET, Vector2.Zero, SCREENALIGNMENT, ANIMATIONS, ISTRANSITIONABLE)
     {
         text = TEXT;
         textAlignment = TEXTALIGNMENT;
-        font = Globals.defaultFont;
+        font = FONT;
         Init();
     }
 

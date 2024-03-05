@@ -6,6 +6,7 @@ public class MainMenu
 {
     public List<Button> buttons = new();
     public Button continueButton;
+    private TextComponent title;
 
     public MainMenu()
     {
@@ -13,22 +14,25 @@ public class MainMenu
                                                         .WithPath("rect")
                                                         .WithDims(new Vector2(200, 64));
 
-        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 100))
+        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 120))
                                 .WithText("New Game")
                                 .WithButtonAction(Play)
                                 .BuildButton());
 
-        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 200))
+        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 280))
                                 .WithText("Customise")
                                 .WithButtonAction(TransitionManager.ChangeGameState)
                                 .WithButtonInfo(GameState.CUSTOM)
                                 .BuildButton());
 
-        continueButton = buttonBuilder.WithOffset(new Vector2(0, 0))
+        continueButton = buttonBuilder.WithOffset(new Vector2(0, 200))
                                     .WithText("Continue")
                                     .WithAvailable(GameGlobals.gameInProgress)
                                     .WithButtonInfo(GameState.GAME_PLAY)
                                     .BuildButton();
+
+        title = new TextComponentBuilder().WithTextList(new() { "A Chip Off", "The Old Blocks"} ).WithFont(Fonts.defaultFont108).WithOffset(new(0,-100)).BuildMultiLine();
+        title.effect = Effects.rainbow;
     }
 
     public virtual void Update()
@@ -39,6 +43,7 @@ public class MainMenu
         }
         continueButton.isAvailable = GameGlobals.gameInProgress;
         continueButton.Update();
+        title.Update();
     }
 
     private void Play(object SENDER, object INFO)
@@ -53,6 +58,7 @@ public class MainMenu
         {
             button.Draw();
         }
-        continueButton.Draw();
+        if (continueButton.isAvailable) continueButton.Draw();
+        title.Draw();
     }
 }
