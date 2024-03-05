@@ -8,8 +8,8 @@ public class RoundEndOverlay
 
     public RoundEndOverlay()
     {
-        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
-                                                        .WithDims(new Vector2(243, 37));
+        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("Button250x64")
+                                                        .WithDims(new Vector2(250, 64));
         resetBtn = buttonBuilder.WithOffset(new Vector2(0, -50))
                             .WithText("Play Again")
                             .WithButtonAction(Globals.reset)

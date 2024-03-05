@@ -11,10 +11,10 @@ public class MainMenu
     public MainMenu()
     {
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithScreenAlignment(Alignment.CENTER)
-                                                        .WithPath("rect")
-                                                        .WithDims(new Vector2(200, 64));
+                                                        .WithPath("Button250x64")
+                                                        .WithDims(new Vector2(250, 64));
 
-        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 120))
+        buttons.Add(buttonBuilder.WithOffset(new Vector2(0, 200))
                                 .WithText("New Game")
                                 .WithButtonAction(Play)
                                 .BuildButton());
@@ -25,7 +25,7 @@ public class MainMenu
                                 .WithButtonInfo(GameState.CUSTOM)
                                 .BuildButton());
 
-        continueButton = buttonBuilder.WithOffset(new Vector2(0, 200))
+        continueButton = buttonBuilder.WithOffset(new Vector2(0, 120))
                                     .WithText("Continue")
                                     .WithAvailable(GameGlobals.gameInProgress)
                                     .WithButtonInfo(GameState.GAME_PLAY)
@@ -58,7 +58,7 @@ public class MainMenu
         {
             button.Draw();
         }
-        if (continueButton.isAvailable) continueButton.Draw();
+        continueButton.Draw();
         title.Draw();
     }
 }

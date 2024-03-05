@@ -38,7 +38,7 @@ public class SettingsMenu
         inputText = new TextComponentBuilder().WithText(inputs).WithOffset(new Vector2(-340, 80)).Build();
         controlText = new TextComponentBuilder().WithText(controls).WithOffset(new Vector2(230, 80)).Build();
 
-        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
+        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("Button250x64")
                                                         .WithDims(new Vector2(250, 64))
                                                         .WithScreenAlignment(Alignment.TOP)
                                                         .WithHoverScale(new Vector2(1.01f, 1.01f))

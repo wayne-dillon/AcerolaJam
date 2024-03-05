@@ -41,7 +41,7 @@ public class GamePlay
 
         backdrops = new();
         backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(384,576)).WithColor(Colors.Black).Build());
-        backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(176,176)).WithColor(Colors.Black).WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 5))).Build());
+        backdrops.Add(new SpriteBuilder().WithPath("Panel160x160").WithDims(new(160,160)).WithColor(Colors.Black).WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 5))).Build());
     }
 
     public void Update()

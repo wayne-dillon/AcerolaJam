@@ -5,7 +5,7 @@ public class Colors
     public static readonly Color Black = new(0,0,0);
     public static readonly Color Gray = new(70,70,70);
     public static readonly Color OffWhite = new(180, 180, 180);
-    public static readonly Color White = new(255, 255, 255);
+    public static readonly Color White = new(230, 230, 230);
     public static readonly Color Red = new(255,3,43);
     public static readonly Color Orange = new(255,143,0);
     public static readonly Color Yellow = new(255,255,13);

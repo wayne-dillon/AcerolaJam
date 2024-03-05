@@ -20,8 +20,6 @@ public class Game1Game : Game
     public Sprite background;
     public Sprite foreground;
 
-    Cursor cursor;
-
     public Game1Game()
     {
         Globals.graphics = new GraphicsDeviceManager(this);
@@ -58,8 +56,6 @@ public class Game1Game : Game
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
-        cursor = new Cursor();
-
         Globals.keyboard = new MyKeyboard();
         Globals.mouse = new MyMouseControl();
 
@@ -136,8 +132,6 @@ public class Game1Game : Game
         Globals.keyboard.UpdateOld();
         Globals.mouse.UpdateOld();
 
-        cursor.Update();
-
         base.Update(gameTime);
     }
 
@@ -174,8 +168,6 @@ public class Game1Game : Game
         }
 
         ui.Draw();
-
-        cursor.Draw();
 
         foreground.Draw();
 
