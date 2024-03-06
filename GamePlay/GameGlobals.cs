@@ -15,4 +15,6 @@ public class GameGlobals
     public static int baseFallTime = 1000;
     public static int increaseThreshold = 10;
     public static int aberrationPerc = 30;
+
+    public static List<TextComponent> scores;
 }

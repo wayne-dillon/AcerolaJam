@@ -6,12 +6,14 @@ public class BasePiece
     private Sprite sprite;
     public Color color;
     protected bool isAberrant;
+    private bool isInPlay;
 
     protected BlockGrid blockGrid;
     protected Dictionary<Orientation, Configuration> configurations;
     private Orientation currentOrientation;
     public Orientation CurrentOrientation {  get { return currentOrientation; } }
     public Configuration CurrentConfiguration { get { return configurations[currentOrientation]; } }
+    public Configuration baseConf;
     private Coordinate originPos;
     public Coordinate OriginPos {  get { return originPos; } }
 
@@ -32,6 +34,7 @@ public class BasePiece
         configurations.Add(Orientation.EAST, new(blockGrid.EastCoords()));
         configurations.Add(Orientation.SOUTH, new(blockGrid.SouthCoords()));
         configurations.Add(Orientation.WEST, new(blockGrid.WestCoords()));
+        SetBaseConf();
 
         MoveToUpNext();
     }
@@ -40,6 +43,8 @@ public class BasePiece
     {
         sprite.Update();
     }
+
+    protected virtual void SetBaseConf() { }
 
     protected virtual Coordinate[] GetCoords() => new Coordinate[0];
 
@@ -122,6 +127,7 @@ public class BasePiece
                 tile.IsOccupied = true;
                 tile.SetColor(color);
                 placed = true;
+                SFXPlayer.PlaySound(SoundEffects.BLOCK_LANDS);
             }
         }
     }
@@ -164,15 +170,17 @@ public class BasePiece
 
     public void MoveToGrid()
     {
+        isInPlay = true;
         originPos = new(5, -CurrentConfiguration.TopRow());
         offset = Vector2.Zero;
+        if (isAberrant) SFXPlayer.PlaySound(SoundEffects.GLITCH);
     }
 
     protected void MoveToUpNext()
     {
         originPos = new(18, 5);
-        int upDown = CurrentConfiguration.TopRow() + CurrentConfiguration.BottomRow();
-        int leftRight = CurrentConfiguration.LeftColumn() + CurrentConfiguration.RightColumn();
+        int upDown = baseConf.TopRow() + baseConf.BottomRow();
+        int leftRight = baseConf.LeftColumn() + baseConf.RightColumn();
         offset = new(-leftRight * 32 / 2, -upDown * 32 / 2);
     }
 
@@ -200,11 +208,23 @@ public class BasePiece
 
     public void Draw()
     {
-        foreach(var coord in CurrentConfiguration.coordinates)
+        if (isInPlay)
         {
-            if (coord.Value)
+            foreach (var coord in CurrentConfiguration.coordinates)
             {
-                sprite.Draw(EnumHelper.ScreenPos(coord.Key + originPos) + offset);
+                if (coord.Value)
+                {
+                    sprite.Draw(EnumHelper.ScreenPos(coord.Key + originPos) + offset);
+                }
+            }
+        } else
+        {
+            foreach (var coord in baseConf.coordinates)
+            {
+                if (coord.Value)
+                {
+                    sprite.Draw(EnumHelper.ScreenPos(coord.Key + originPos) + offset);
+                }
             }
         }
     }

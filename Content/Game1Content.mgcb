@@ -220,3 +220,27 @@
 /processorParam:TextureFormat=Color
 /build:SliderBar200x10.png
 
+#begin Sound/Glitch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Glitch.wav
+
+#begin Sound/GameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/GameOver.wav
+
+#begin Sound/LineComplete.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/LineComplete.wav
+
+#begin Sound/BlockLands.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/BlockLands.wav
+

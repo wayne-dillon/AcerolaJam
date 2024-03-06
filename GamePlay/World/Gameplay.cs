@@ -19,6 +19,7 @@ public class GamePlay
     private void Init()
     {
         GameGlobals.gameInProgress = true;
+        GameGlobals.scores = new();
 
         GameGlobals.grid = grid = new Grid();
         GameGlobals.score = 0;
@@ -53,6 +54,7 @@ public class GamePlay
             if (currentPiece.CheckForCollision(new(0,0)))
             {
                 GameGlobals.gameInProgress = false;
+                SFXPlayer.PlaySound(SoundEffects.GAME_OVER);
             }
 
             nextPiece = BlockMaker.RandomPiece();
@@ -96,6 +98,13 @@ public class GamePlay
         {
             drop.Update();
         }
+
+
+        foreach (var score in GameGlobals.scores)
+        {
+            score.Update();
+        }
+        GameGlobals.scores.RemoveAll(score => score.animations.Count == 0);
     }
 
     public void Reset(object SENDER, object INFO)
@@ -115,6 +124,11 @@ public class GamePlay
         foreach (var textItem in text)
         {
             textItem.Draw();
+        }
+
+        foreach (var score in GameGlobals.scores)
+        {
+            score.Draw();
         }
     }
 }

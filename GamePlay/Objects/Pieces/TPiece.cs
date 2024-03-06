@@ -7,6 +7,11 @@ public class TPiece : BasePiece
     {
     }
 
+    protected override void SetBaseConf()
+    {
+        baseConf = new(new() { { new(-1, 0), true }, { new(0, 0), true }, { new(0, 1), true }, { new(1, 0), true } });
+    }
+
     protected override Coordinate[] GetCoords()
     {
         if (isAberrant)

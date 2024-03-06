@@ -79,10 +79,13 @@ public class Grid
 
         if (filledRows.Count != 0)
         {
-            GameGlobals.score += 100 * filledRows.Count * filledRows.Count;
+            int newScore = 100 * filledRows.Count * filledRows.Count;
+            GameGlobals.score += newScore;
+            GameGlobals.scores.Add(EnumHelper.ScoreText(newScore));
             if (GameGlobals.score > GameGlobals.highScore) GameGlobals.highScore = GameGlobals.score;
             GameGlobals.animating = true;
             animationTimer.ResetToZero();
+            SFXPlayer.PlaySound(SoundEffects.LINE_COMPLETE);
         }
     }
 
