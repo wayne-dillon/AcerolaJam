@@ -1,24 +1,24 @@
 ﻿public class BlockMaker
 {
-    public static BasePiece RandomPiece()
+    public static BasePiece RandomPiece(int NEXTPOS)
     {
         int num = Globals.random.Next(0, 7);
         switch (num)
         {
             case 0:
-                return new LongPiece();
+                return new LongPiece(NEXTPOS);
             case 1:
-                return new LPiece();
+                return new LPiece(NEXTPOS);
             case 2:
-                return new RPiece();
+                return new RPiece(NEXTPOS);
             case 3:
-                return new SPiece();
+                return new SPiece(NEXTPOS);
             case 4:
-                return new SquarePiece();
+                return new SquarePiece(NEXTPOS);
             case 5:
-                return new TPiece();
+                return new TPiece(NEXTPOS);
             default:
-                return new ZPiece();
+                return new ZPiece(NEXTPOS);
         }
     }
 }

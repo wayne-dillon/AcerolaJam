@@ -2,14 +2,16 @@
 
 public class GamePlay
 {
-    private List<Sprite> backdrops;
+    private List<LinkedButton> panels;
+    private Sprite backdrop;
 
     private Grid grid;
     private BasePiece currentPiece;
-    private BasePiece nextPiece;
+    private Dictionary<int, BasePiece> nextPieces;
     private List<TextComponent> text;
     private TextComponent scoreDisplay;
     private TextComponent highScoreDisplay;
+    private TextComponent speedLevelDisplay;
     private MyTimer fallTimer;
 
     public GamePlay()
@@ -23,33 +25,53 @@ public class GamePlay
 
         GameGlobals.grid = grid = new Grid();
         GameGlobals.score = 0;
+        GameGlobals.speedLevel = 1;
         GameGlobals.fallTime = GameGlobals.baseFallTime;
         fallTimer = new(GameGlobals.fallTime);
 
-        currentPiece = BlockMaker.RandomPiece();
+        currentPiece = BlockMaker.RandomPiece(0);
         currentPiece.MoveToGrid();
-        nextPiece = BlockMaker.RandomPiece();
+        nextPieces = new();
+        for (int i = 0; i < 3; i++)
+        {
+            nextPieces.Add(i, BlockMaker.RandomPiece(i));
+        }
 
         highScoreDisplay = new TextComponentBuilder().WithFont(Fonts.defaultFont36).WithAbsolutePosition(new(100, 180)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
         scoreDisplay = new TextComponentBuilder().WithFont(Fonts.defaultFont36).WithAbsolutePosition(new(100, 360)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
+        speedLevelDisplay = new TextComponentBuilder().WithFont(Fonts.defaultFont36).WithAbsolutePosition(new(100, 540)).WithTextAlignment(Alignment.CENTER_LEFT).Build();
         text = new()
         {
             scoreDisplay,
-            highScoreDisplay
+            highScoreDisplay,
+            speedLevelDisplay
         };
         text.Add(new TextComponentBuilder().WithText("Hi-Score:").WithAbsolutePosition(new(100, 120)).WithTextAlignment(Alignment.CENTER_LEFT).Build());
         text.Add(new TextComponentBuilder().WithText("Score:").WithAbsolutePosition(new(100, 300)).WithTextAlignment(Alignment.CENTER_LEFT).Build());
+        text.Add(new TextComponentBuilder().WithText("Level:").WithAbsolutePosition(new(100, 480)).WithTextAlignment(Alignment.CENTER_LEFT).Build());
 
-        backdrops = new();
-        backdrops.Add(new SpriteBuilder().WithPath("rect").WithDims(new(384,576)).WithColor(Colors.Black).Build());
-        backdrops.Add(new SpriteBuilder().WithPath("Panel160x160").WithDims(new(160,160)).WithColor(Colors.Black).WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 5))).Build());
+        panels = new();
+        SpriteBuilder panelBuilder = new SpriteBuilder().WithPath("Panel160x160")
+                                                        .WithDims(new(160, 160))
+                                                        .WithButtonAction(SetNextIndex)
+                                                        .WithColor(Colors.Black);
+
+        panels.Add(panelBuilder.WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 9))).WithButtonInfo(1).BuildLinkedButton());
+        panels.Add(panelBuilder.WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 15))).WithButtonInfo(2).BuildLinkedButton());
+        panels.Add(panelBuilder.WithAbsolutePosition(EnumHelper.ScreenPos(new(18, 3))).WithButtonInfo(0).WithAvailable(false).BuildLinkedButton());
+        foreach (LinkedButton button in panels)
+        {
+            button.SetLinkedList(panels);
+        }
+
+        backdrop = new SpriteBuilder().WithPath("rect").WithDims(new(384, 576)).WithColor(Colors.Black).Build();
     }
 
     public void Update()
     {
         if (currentPiece.placed)
         {
-            currentPiece = nextPiece;
+            currentPiece = nextPieces[GameGlobals.nextPieceIndex];
             currentPiece.MoveToGrid();
             if (currentPiece.CheckForCollision(new(0,0)))
             {
@@ -57,7 +79,7 @@ public class GamePlay
                 SFXPlayer.PlaySound(SoundEffects.GAME_OVER);
             }
 
-            nextPiece = BlockMaker.RandomPiece();
+            nextPieces[GameGlobals.nextPieceIndex] = BlockMaker.RandomPiece(GameGlobals.nextPieceIndex);
         }
 
         if (GameGlobals.gameInProgress && !GameGlobals.animating)
@@ -85,20 +107,25 @@ public class GamePlay
 
         grid.Update();
         currentPiece.Update();
-        nextPiece.Update();
+        for (int i = 0; i < 3; i++)
+        {
+            nextPieces[i].Update();
+        }
         highScoreDisplay.Update("" + GameGlobals.highScore);
         scoreDisplay.Update("" + GameGlobals.score);
+        speedLevelDisplay.Update("" + GameGlobals.speedLevel);
 
         foreach (var textItem in text)
         {
-            if (textItem != highScoreDisplay && textItem != scoreDisplay) textItem.Update();
+            if (textItem != highScoreDisplay && textItem != scoreDisplay && textItem != speedLevelDisplay) 
+                textItem.Update();
         }
 
-        foreach (var drop in backdrops)
+        foreach (var panel in panels)
         {
-            drop.Update();
+            panel.Update();
         }
-
+        backdrop.Update();
 
         foreach (var score in GameGlobals.scores)
         {
@@ -112,15 +139,27 @@ public class GamePlay
         Init();
     }
 
+    public void SetNextIndex(object SENDER, object INFO)
+    {
+        if (INFO is int index)
+        {
+            GameGlobals.nextPieceIndex = index;
+        }
+    }
+
     public void Draw()
     {
-        foreach (var drop in backdrops)
+        foreach (var panel in panels)
         {
-            drop.Draw();
+            panel.Draw();
         }
+        backdrop.Draw();
         grid.Draw();
         currentPiece.Draw();
-        nextPiece.Draw();
+        for (int i = 0; i < 3; i++)
+        {
+            nextPieces[i].Draw();
+        }
         foreach (var textItem in text)
         {
             textItem.Draw();

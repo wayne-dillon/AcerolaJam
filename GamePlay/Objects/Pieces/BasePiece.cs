@@ -19,7 +19,7 @@ public class BasePiece
 
     private Vector2 offset = Vector2.Zero;
 
-    public BasePiece(Color COLOR)
+    public BasePiece(Color COLOR, int NEXTPOS)
     {
         color = COLOR;
         configurations = new Dictionary<Orientation, Configuration>();
@@ -36,7 +36,7 @@ public class BasePiece
         configurations.Add(Orientation.WEST, new(blockGrid.WestCoords()));
         SetBaseConf();
 
-        MoveToUpNext();
+        MoveToUpNext(NEXTPOS);
     }
 
     public void Update()
@@ -176,9 +176,9 @@ public class BasePiece
         if (isAberrant) SFXPlayer.PlaySound(SoundEffects.GLITCH);
     }
 
-    protected void MoveToUpNext()
+    protected void MoveToUpNext(int POS)
     {
-        originPos = new(18, 5);
+        originPos = new(18, 3 + (POS * 6));
         int upDown = baseConf.TopRow() + baseConf.BottomRow();
         int leftRight = baseConf.LeftColumn() + baseConf.RightColumn();
         offset = new(-leftRight * 32 / 2, -upDown * 32 / 2);

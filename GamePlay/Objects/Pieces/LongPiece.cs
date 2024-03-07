@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 public class LongPiece : BasePiece
 {
-    public LongPiece() : base(Colors.longPiece)
+    public LongPiece(int NEXTPOS) : base(Colors.longPiece, NEXTPOS)
     {
     }
 
